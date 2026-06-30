@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phlipped-assess"
+version = "0.0.1"
+description = "PHLIPPED physical security assessment CLI — produces a PSPS score and prioritised gap report."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Adriano (_AstroN0T)", email = "astro@n0t.space" }]
+keywords = ["security", "physical", "pentest", "purple-team", "phlipped"]
+dependencies = [
+  "click>=8.1",
+  "pyyaml>=6.0",
+  "jinja2>=3.1",
+  "rich>=13.7",
+]
+
+[project.scripts]
+phlipped-assess = "phlipped_assess.cli:cli"
+
+[tool.setuptools.packages.find]
+include = ["phlipped_assess*"]
+
+[tool.setuptools.package-data]
+phlipped_assess = ["data/*.yml", "templates/*.html"]

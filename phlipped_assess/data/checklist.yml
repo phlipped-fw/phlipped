@@ -1,0 +1,50 @@
+# PHLIPPED assessment checklist v0.1
+# Each item: id, question, weight (0-10), threat_refs (PHL-T-NNN), recommendation, cost_eur, effort_hours
+items:
+  - id: PSPS-001
+    question: "Badge system uses iCLASS SE / Seos or DESFire EV3 (not Prox 125 kHz or MIFARE Classic)?"
+    weight: 9
+    threat_refs: [PHL-T-001]
+    recommendation: "Migrate to iCLASS SE / Seos or DESFire EV3 with mutual authentication."
+    cost_eur: 5000
+    effort_hours: 80
+
+  - id: PSPS-002
+    question: "USB ports on corporate endpoints are physically blocked OR disabled via GPO for HID class on locked sessions?"
+    weight: 8
+    threat_refs: [PHL-T-002]
+    recommendation: "Deploy USB lockdown GPO; install physical port blockers on kiosks."
+    cost_eur: 200
+    effort_hours: 16
+
+  - id: PSPS-003
+    question: "802.1X NAC is enforced on all publicly accessible RJ45 ports?"
+    weight: 9
+    threat_refs: [PHL-T-005]
+    recommendation: "Enable 802.1X with MAB fallback on access switches; alert on MAB-only authentications."
+    cost_eur: 0
+    effort_hours: 40
+
+  - id: PSPS-004
+    question: "Rogue AP / duplicate-SSID monitoring is in place on premises?"
+    weight: 7
+    threat_refs: [PHL-T-007]
+    recommendation: "Deploy Kismet sensor or use AP wireless IDS to alert on BSSIDs advertising corp SSID outside the known AP MAC pool."
+    cost_eur: 100
+    effort_hours: 8
+
+  - id: PSPS-005
+    question: "Anti-passback and tailgating detection configured at entry points?"
+    weight: 6
+    threat_refs: [PHL-T-001]
+    recommendation: "Enable anti-passback in the PACS; couple with mantrap or interlock on sensitive perimeters."
+    cost_eur: 2000
+    effort_hours: 24
+
+  - id: PSPS-006
+    question: "CCTV coverage validated against walkthrough-identified blind spots?"
+    weight: 5
+    threat_refs: []
+    recommendation: "Quarterly walkthrough to confirm coverage; rotate field of view as layout changes."
+    cost_eur: 500
+    effort_hours: 8
