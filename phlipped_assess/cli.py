@@ -35,7 +35,7 @@ def run(answers_path: Path | None, out_path: Path) -> None:
     if answers_path:
         answers = yaml.safe_load(answers_path.read_text()) or {}
     else:
-        console.print("[bold cyan]PHLIPPED assessment — answer y/n for each item[/bold cyan]\n")
+        console.print("[bold cyan]PHLIPPED assessment - answer y/n for each item[/bold cyan]\n")
         for it in items:
             answers[it.id] = click.confirm(f"[{it.id}] {it.question}", default=False)
 
@@ -60,7 +60,7 @@ def list_items() -> None:
     """List checklist items."""
     items = load_checklist()
     for it in items:
-        console.print(f"[cyan]{it.id}[/cyan] (w={it.weight}) — {it.question}")
+        console.print(f"[cyan]{it.id}[/cyan] (w={it.weight}) - {it.question}")
 
 
 if __name__ == "__main__":

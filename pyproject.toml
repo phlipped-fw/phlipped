@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "phlipped-assess"
 version = "0.0.1"
-description = "PHLIPPED physical security assessment CLI — produces a PSPS score and prioritised gap report."
+description = "PHLIPPED physical security assessment CLI - produces a PSPS score and prioritised gap report."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

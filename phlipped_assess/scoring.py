@@ -30,6 +30,6 @@ def psps(items: list[Item], answers: dict[str, bool]) -> float:
 
 
 def gaps(items: list[Item], answers: dict[str, bool]) -> list[Item]:
-    """Items answered 'no', sorted by weight desc — priority order."""
+    """Items answered 'no', sorted by weight desc - priority order."""
     missing = [i for i in items if not answers.get(i.id, False)]
     return sorted(missing, key=lambda i: i.weight, reverse=True)
