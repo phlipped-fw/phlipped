@@ -1,0 +1,40 @@
+title: PHL-D-003 - MIFARE UID anomaly on PACS
+id: 7f4e1c10-0003-4f1a-9c2e-phld003miuid
+status: experimental
+description: |
+  Detects behaviour consistent with MIFARE Classic cloning (PHL-T-003): the same
+  card UID authenticating at two readers that are physically incompatible within a
+  short window (a card cannot be in two places at once), or a burst of failed reads
+  of one UID immediately followed by a successful auth with that UID (key recovery
+  in progress, then an emulated clone). Targets physical access control system
+  (PACS) event logs ingested as a custom decoder.
+references:
+  - https://github.com/phlipped-fw/phlipped/blob/main/catalog/threats/PHL-T-003.md
+author: _AstroN0T
+date: 2026/10/26
+logsource:
+  product: pacs
+  category: access_event
+detection:
+  same_uid_two_readers:
+    event_type: 'card_read'
+    uid_seen_at_incompatible_readers: true
+  recovery_then_auth:
+    event_type: 'card_read'
+    preceded_by_failed_reads_same_uid: true
+    result: 'granted'
+  condition: same_uid_two_readers or recovery_then_auth
+fields:
+  - uid
+  - reader_id
+  - result
+  - timestamp
+falsepositives:
+  - Legitimate anti-passback exceptions (escort, maintenance override)
+  - Clock skew between readers wider than the correlation window
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1556
+  - attack.defense_evasion
+  - attack.t1078

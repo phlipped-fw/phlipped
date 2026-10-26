@@ -5,7 +5,7 @@ description: |
   Detects DHCP lease or NAC event for a MAC OUI belonging to common drop-device hardware
   (Raspberry Pi Foundation, Espressif, etc.) on a VLAN that should not host such devices.
 references:
-  - https://github.com/phlipped-fw/phlipped-catalog/blob/main/threats/PHL-T-005.md
+  - https://github.com/phlipped-fw/phlipped/blob/main/catalog/threats/PHL-T-005.md
 author: _AstroN0T
 date: 2026/07/01
 logsource:
