@@ -1,5 +1,5 @@
 # Minimal Wazuh single-node stack for PHLIPPED rule validation.
-# Bind-mount ../phlipped-rules so rule edits are picked up after `docker compose restart wazuh-manager`.
+# Bind-mount the sibling ../rules folder so rule edits are picked up after `docker compose restart wazuh-manager`.
 
 services:
   wazuh-manager:
@@ -20,7 +20,7 @@ services:
       - wazuh_etc:/var/ossec/etc
       - wazuh_logs:/var/ossec/logs
       - wazuh_queue:/var/ossec/queue
-      - ../phlipped-rules/wazuh:/var/ossec/etc/rules/local_rules.d:ro
+      - ../rules/wazuh:/var/ossec/etc/rules/local_rules.d:ro
 
   wazuh-indexer:
     image: wazuh/wazuh-indexer:4.9.0
