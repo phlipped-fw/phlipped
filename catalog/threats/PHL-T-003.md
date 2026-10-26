@@ -19,7 +19,7 @@ severity: 8.0
 
 # MIFARE Classic key recovery and cloning
 
-MIFARE Classic 1K/4K cards use the proprietary Crypto1 cipher with well-documented cryptographic flaws (Garcia et al. 2008, Courtois 2009). Sector keys can be recovered offline via nested or dark-side attacks, or in real time using Mfkey32 by sniffing a single reader authentication. Once any sector key is known, the entire card cloneable.
+MIFARE Classic 1K/4K cards use the proprietary Crypto1 cipher with well-documented cryptographic flaws (Garcia et al. 2008, Courtois 2009). Sector keys can be recovered offline via nested or dark-side attacks, or in real time using Mfkey32 by sniffing a single reader authentication. Once any sector key is known, the entire card is cloneable.
 
 ## Attack chain
 
