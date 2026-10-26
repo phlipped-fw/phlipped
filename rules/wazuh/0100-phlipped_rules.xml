@@ -1,0 +1,32 @@
+<!--
+  PHLIPPED detection rules - Wazuh fragment.
+  Drop into /var/ossec/etc/rules/local_rules.d/ on the manager.
+  Rule IDs allocated in the 100200-100299 range; adjust to your deployment.
+-->
+<group name="phlipped,physical_attack,">
+
+  <!-- PHL-D-002 - HID injection typing burst (Sysmon Event ID 1) -->
+  <rule id="100202" level="10">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.image">\\(cmd|powershell|wscript|mshta)\.exe$</field>
+    <field name="win.eventdata.parentImage">\\(explorer|winlogon)\.exe$</field>
+    <description>PHL-D-002: HID injection - shell spawned from unusual parent on locked/kiosk session.</description>
+    <mitre>
+      <id>T1200</id>
+      <id>T1059.001</id>
+    </mitre>
+    <group>phlipped,phl-d-002,</group>
+  </rule>
+
+  <!-- PHL-D-011 - Suspicious MAC OUI on non-IT VLAN (placeholder, requires NAC/DHCP decoder) -->
+  <rule id="100211" level="10">
+    <decoded_as>dhcp</decoded_as>
+    <field name="src_mac">^(B8:27:EB|DC:A6:32|E4:5F:01|24:0A:C4|7C:DF:A1)</field>
+    <description>PHL-D-011: drop-device MAC OUI observed (Raspberry Pi / Espressif).</description>
+    <mitre>
+      <id>T1200</id>
+    </mitre>
+    <group>phlipped,phl-d-011,</group>
+  </rule>
+
+</group>
