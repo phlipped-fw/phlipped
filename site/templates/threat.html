@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ t.id }} &mdash; {{ t.name }}{% endblock %}
+{% block content %}
+<p class="back"><a href="{{ root }}index.html">&larr; catalog</a></p>
+<p><span class="id">{{ t.id }}</span></p>
+
+<dl class="meta">
+  <dt>Category</dt><dd><span class="pill">{{ t.category }}</span></dd>
+  <dt>Severity</dt><dd class="sev-badge">{{ "%.1f"|format(t.severity) }} / 10</dd>
+  <dt>Physical access</dt><dd>{{ t.prerequisites.physical_access }}</dd>
+  <dt>Time to execute</dt><dd>{{ t.prerequisites.time_seconds }} s</dd>
+  <dt>Skill level</dt><dd>{{ t.prerequisites.skill_level }} / 5</dd>
+  <dt>Hardware</dt><dd>{% for h in t.prerequisites.hardware %}<span class="pill">{{ h }}</span>{% endfor %}</dd>
+  <dt>MITRE ATT&amp;CK</dt><dd>{% for m in t.mitre_attack %}<span class="pill">{{ m }}</span>{% endfor %}</dd>
+  {% if t.mitre_d3fend %}<dt>MITRE D3FEND</dt><dd>{% for m in t.mitre_d3fend %}<span class="pill">{{ m }}</span>{% endfor %}</dd>{% endif %}
+</dl>
+
+{% if t.observables %}
+<h2>Observable indicators</h2>
+<ul>{% for o in t.observables %}<li>{{ o }}</li>{% endfor %}</ul>
+{% endif %}
+
+<div class="body">
+{{ body_html|safe }}
+</div>
+{% endblock %}

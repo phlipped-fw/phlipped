@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}PHLIPPED{% endblock %}</title>
+<meta name="description" content="PHLIPPED: a defensive framework for physical electronic attacks.">
+<link rel="stylesheet" href="{{ root }}assets/style.css">
+</head>
+<body>
+<header class="site">
+  <span class="brand"><a href="{{ root }}index.html">PHLIPPED</a></span>
+  <nav>
+    <a href="{{ root }}index.html">Catalog</a>
+    <a href="{{ root }}worked-thread.html">Framework in action</a>
+    <a href="{{ root }}about.html">About</a>
+  </nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer class="site">
+  PHLIPPED alpha &middot; defensive framework for physical electronic attacks &middot; MIT
+</footer>
+</body>
+</html>

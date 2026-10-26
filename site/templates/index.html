@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}PHLIPPED &mdash; threat catalog{% endblock %}
+{% block content %}
+<h1>PHLIPPED</h1>
+<p class="lead">A defensive framework for physical electronic attacks: badge cloning,
+keystroke injection, drop devices and rogue radios. It catalogs the threats, scores
+how exposed you are, and maps each one to a concrete detection and fix.</p>
+
+<div class="callout">
+  <strong>New here?</strong> See the framework applied end to end to one real attack,
+  MIFARE badge cloning, from threat to detection to remediation:
+  <a href="worked-thread.html">Framework in action &rarr;</a>
+</div>
+
+<h2>Threat catalog</h2>
+<p class="back">{{ threats|length }} threats &middot; filter by category:</p>
+<div class="filters" id="filters">
+  <button aria-pressed="true" data-cat="all">all</button>
+  {% for c in categories %}<button aria-pressed="false" data-cat="{{ c }}">{{ c }}</button>{% endfor %}
+</div>
+
+<table id="catalog">
+  <thead>
+    <tr><th>ID</th><th>Name</th><th>Category</th><th>Access</th><th>Skill</th><th>Severity</th></tr>
+  </thead>
+  <tbody>
+  {% for t in threats %}
+    <tr data-category="{{ t.category }}">
+      <td><a class="id" href="threats/{{ t.id }}.html">{{ t.id }}</a></td>
+      <td><a href="threats/{{ t.id }}.html">{{ t.name }}</a></td>
+      <td><span class="pill">{{ t.category }}</span></td>
+      <td>{{ t.prerequisites.physical_access }}</td>
+      <td>{{ t.prerequisites.skill_level }}/5</td>
+      <td class="sev"><span class="sev-badge">{{ "%.1f"|format(t.severity) }}</span></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<script>
+(function () {
+  var filters = document.getElementById('filters');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#catalog tbody tr'));
+  filters.addEventListener('click', function (e) {
+    var btn = e.target.closest('button'); if (!btn) return;
+    var cat = btn.getAttribute('data-cat');
+    filters.querySelectorAll('button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
+    rows.forEach(function (r) {
+      r.style.display = (cat === 'all' || r.getAttribute('data-category') === cat) ? '' : 'none';
+    });
+  });
+})();
+</script>
+{% endblock %}
