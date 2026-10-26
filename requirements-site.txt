@@ -1,0 +1,6 @@
+# Dependencies to build the catalog artifact and the static site.
+# Used by CI and by the Cloudflare Pages build.
+pyyaml>=6.0
+jsonschema>=4.0
+jinja2>=3.1
+markdown>=3.5

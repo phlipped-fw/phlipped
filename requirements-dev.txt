@@ -1,0 +1,4 @@
+# Full dev + CI dependency set.
+-r requirements-site.txt
+-e ./assess
+pytest>=8.0

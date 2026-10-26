@@ -1,0 +1,12 @@
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+
+# generated artifacts
+catalog/catalog.json
+site/public/
+assessment.json
+report.html
