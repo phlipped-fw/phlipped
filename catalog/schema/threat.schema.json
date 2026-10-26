@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.n0t.space/schema/threat.schema.json",
+  "title": "PHLIPPED Threat",
+  "type": "object",
+  "required": ["id", "name", "category", "prerequisites", "mitre_attack", "severity"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^PHL-T-[0-9]{3}$" },
+    "name": { "type": "string" },
+    "category": {
+      "type": "string",
+      "enum": ["rfid-nfc", "sub-ghz", "hid-injection", "drop-device", "rogue-ap", "ir", "ibutton", "usb-exfil"]
+    },
+    "prerequisites": {
+      "type": "object",
+      "required": ["physical_access", "time_seconds", "hardware", "skill_level"],
+      "properties": {
+        "physical_access": { "type": "string", "enum": ["touch", "proximity", "line-of-sight", "rf-range"] },
+        "time_seconds": { "type": "integer", "minimum": 0 },
+        "hardware": { "type": "array", "items": { "type": "string" } },
+        "skill_level": { "type": "integer", "minimum": 1, "maximum": 5 }
+      }
+    },
+    "mitre_attack": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^T[0-9]{4}(\\.[0-9]{3})?$" }
+    },
+    "mitre_d3fend": { "type": "array", "items": { "type": "string" } },
+    "observables": { "type": "array", "items": { "type": "string" } },
+    "known_tools": { "type": "array", "items": { "type": "string" } },
+    "severity": { "type": "number", "minimum": 0, "maximum": 10 }
+  }
+}
