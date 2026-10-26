@@ -9,6 +9,7 @@ import yaml
 from rich.console import Console
 from rich.table import Table
 
+from .report import render_report
 from .scoring import Item, gaps, psps
 
 console = Console()
@@ -53,6 +54,21 @@ def run(answers_path: Path | None, out_path: Path) -> None:
 
     out_path.write_text(json.dumps({"psps": score, "answers": answers, "gaps": [g.id for g in missing]}, indent=2))
     console.print(f"\nWrote {out_path}")
+
+
+@cli.command()
+@click.option("--in", "in_path", type=click.Path(exists=True, path_type=Path), default=Path("assessment.json"), help="assessment.json produced by 'run'")
+@click.option("--out", "out_path", type=click.Path(path_type=Path), default=Path("report.html"))
+@click.option("--base-url", default="/threats", help="base URL for catalog threat links")
+def report(in_path: Path, out_path: Path, base_url: str) -> None:
+    """Render an HTML posture report from an assessment.json."""
+    data = json.loads(in_path.read_text())
+    items = load_checklist()
+    answers = data.get("answers", {})
+    score = data.get("psps", psps(items, answers))
+    missing = gaps(items, answers)
+    out_path.write_text(render_report(score, missing, base_url=base_url))
+    console.print(f"Wrote {out_path} (PSPS {score}, {len(missing)} gaps)")
 
 
 @cli.command()
