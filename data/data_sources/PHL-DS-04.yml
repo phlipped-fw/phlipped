@@ -1,0 +1,8 @@
+id: PHL-DS-04
+name: Vehicle telematics
+kind: sensor
+description: Telematics platform records for vehicles, covering unlock events and timestamps, key-in-vehicle status, set against the registered fob's known location.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-27

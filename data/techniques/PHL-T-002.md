@@ -15,6 +15,7 @@ observables:
   - USB device enumeration of HID class on locked workstations
 known_tools: [RubberDucky, Bash Bunny, O.MG Cable, Flipper Zero]
 tactics: [PHL-TA-03]
+data_sources: [PHL-DS-07, PHL-DS-08]
 severity: 8.0
 status: experimental
 version: 0.1.0

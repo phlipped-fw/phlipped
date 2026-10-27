@@ -16,6 +16,7 @@ observables:
   - Process spawn with characteristics of `PHL-T-002` typing-burst
 known_tools: [O.MG Cable (USB-A, USB-C, Lightning variants)]
 tactics: [PHL-TA-04, PHL-TA-03]
+data_sources: [PHL-DS-02, PHL-DS-05, PHL-DS-07, PHL-DS-08]
 severity: 8.5
 status: experimental
 version: 0.1.0

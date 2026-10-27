@@ -1,0 +1,8 @@
+id: PHL-DS-07
+name: Endpoint process, driver and file-access telemetry
+kind: host
+description: Host event telemetry for process creation, driver loads and file access, covering Sysmon events, Windows security events for object access, and parent-process context for spawned shells.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-27

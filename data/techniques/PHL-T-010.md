@@ -14,6 +14,7 @@ observables:
   - Telematics platforms reporting key-in-vehicle status while owner has fob elsewhere
 known_tools: [Commercial relay devices ("car opener boxes"), HackRF + custom firmware]
 tactics: [PHL-TA-01, PHL-TA-02, PHL-TA-03]
+data_sources: [PHL-DS-04]
 severity: 7.0
 status: experimental
 version: 0.1.0

@@ -16,6 +16,7 @@ observables:
   - Captive-portal-style HTTP 302 to an attacker-controlled host
 known_tools: [WiFi Pineapple, ESP32 Marauder, hostapd-wpe, Airgeddon]
 tactics: [PHL-TA-01, PHL-TA-04, PHL-TA-02, PHL-TA-05]
+data_sources: [PHL-DS-02, PHL-DS-06]
 severity: 7.5
 status: experimental
 version: 0.1.0

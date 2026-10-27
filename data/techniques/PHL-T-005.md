@@ -16,6 +16,7 @@ observables:
   - DHCPv6 advertisements from a non-infrastructure host (mitm6 indicator)
 known_tools: [Responder, mitm6, ntlmrelayx, Impacket, LAN Turtle, Bash Bunny]
 tactics: [PHL-TA-04, PHL-TA-05]
+data_sources: [PHL-DS-05, PHL-DS-06]
 severity: 9.2
 status: experimental
 version: 0.1.0

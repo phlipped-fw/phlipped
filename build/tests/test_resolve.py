@@ -21,3 +21,38 @@ def test_malformed_tactics_do_not_crash_or_add_noise():
     mixed = {**base, "technique": [{"id": "PHL-T-001", "tactics": [["x"], "PHL-TA-99"]}]}
     errs = resolve_refs(mixed)
     assert len(errs) == 1 and "PHL-TA-99" in errs[0]
+
+
+def test_dangling_data_source_ref_is_rejected():
+    graph = {"data_source": [{"id": "PHL-DS-01"}],
+             "technique": [{"id": "PHL-T-001", "data_sources": ["PHL-DS-99"]}]}
+    errs = resolve_refs(graph)
+    assert len(errs) == 1 and "PHL-DS-99" in errs[0]
+
+
+def test_resolving_data_source_ref_is_clean():
+    graph = {"data_source": [{"id": "PHL-DS-01"}],
+             "technique": [{"id": "PHL-T-001", "data_sources": ["PHL-DS-01"]}]}
+    assert resolve_refs(graph) == []
+
+
+def test_malformed_data_sources_do_not_crash_or_add_noise():
+    base = {"data_source": [{"id": "PHL-DS-01"}]}
+    for bad in ("PHL-DS-99", None, 7, {"a": 1}, [["PHL-DS-01"]], [None, 3]):
+        graph = {**base, "technique": [{"id": "PHL-T-001", "data_sources": bad}]}
+        assert resolve_refs(graph) == []
+
+
+def test_techniques_without_data_sources_are_allowed():
+    graph = {"data_source": [], "technique": [{"id": "PHL-T-001"}]}
+    assert resolve_refs(graph) == []
+
+
+def test_real_data_sources_are_seeded_and_referenced():
+    graph, errs = build()
+    assert errs == []
+    ds_ids = {d["id"] for d in graph["data_source"]}
+    assert ds_ids  # seeded
+    cited = {r for t in graph["technique"] for r in t.get("data_sources", [])}
+    assert cited <= ds_ids
+    assert ds_ids <= cited  # no seeded channel that nothing references

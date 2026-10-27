@@ -15,6 +15,7 @@ observables:
   - Tenant complaints of "ghost openings" outside their usage pattern
 known_tools: [Flipper Zero, HackRF One, YARD Stick One, rtl_433]
 tactics: [PHL-TA-01, PHL-TA-02, PHL-TA-03]
+data_sources: [PHL-DS-01, PHL-DS-03]
 severity: 6.5
 status: experimental
 version: 0.1.0

@@ -14,6 +14,7 @@ observables:
   - Failed reads on retired card numbers
 known_tools: [Flipper Zero, Proxmark3, ChameleonMini]
 tactics: [PHL-TA-01, PHL-TA-02, PHL-TA-03]
+data_sources: [PHL-DS-01]
 severity: 7.5
 status: experimental
 version: 0.1.0

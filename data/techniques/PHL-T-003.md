@@ -15,6 +15,7 @@ observables:
   - Inventory drift in PACS when emulated cards reuse UIDs of decommissioned ones
 known_tools: [Flipper Zero (Mfkey32), Proxmark3, ChameleonMini, mfoc, mfcuk]
 tactics: [PHL-TA-01, PHL-TA-02, PHL-TA-03]
+data_sources: [PHL-DS-01]
 severity: 8.0
 status: experimental
 version: 0.1.0

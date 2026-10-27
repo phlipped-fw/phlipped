@@ -15,6 +15,7 @@ observables:
   - File copies sourced from sensitive shares to a removable volume
 known_tools: [any USB flash drive, Bash Bunny in exfil mode, KeyCroc, USaBUSe]
 tactics: [PHL-TA-02, PHL-TA-05]
+data_sources: [PHL-DS-07, PHL-DS-08]
 severity: 7.0
 status: experimental
 version: 0.1.0

@@ -1,0 +1,8 @@
+id: PHL-DS-06
+name: Network traffic and authentication telemetry
+kind: network
+description: Flow and packet-level visibility of link-local name resolution (LLMNR, NBT-NS, mDNS), DHCPv6 advertisements, NTLM authentication targets, and HTTP redirects to external hosts.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-27
