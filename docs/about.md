@@ -37,8 +37,8 @@ indicators  ->  detection rules (how you catch it)
             ->  remediation (how you close it)
 ```
 
-Start with the [worked thread](worked-thread.html) to see the whole loop on one
-attack, then browse the [catalog](index.html).
+Start with the [worked thread](worked-thread.md) to see the whole loop on one
+attack, then browse the [catalog](index.md).
 
 ## Licence
 

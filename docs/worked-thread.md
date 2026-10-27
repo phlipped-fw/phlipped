@@ -13,7 +13,7 @@ Many access badges are MIFARE Classic cards. That chip uses a cipher
 exchange, recover the card's key in seconds, and copy the badge onto a blank.
 The copy opens the door exactly like the original.
 
-Full detail, hardware, and the attack chain: [PHL-T-003](threats/PHL-T-003.html).
+Full detail, hardware, and the attack chain: PHL-T-003.
 
 ## 2. What it leaves behind
 
@@ -51,7 +51,7 @@ it last.
 On its own, "MIFARE is broken" is a trivia fact. The value PHLIPPED adds is the
 loop: a catalogued threat, the signals it produces, a detection that fires on
 those signals, and a prioritised fix, all cross-referenced. The
-[assessment tool](about.html) runs this logic across every threat in the catalog
+[assessment tool](about.md) runs this logic across every threat in the catalog
 and gives an organisation a single posture score plus its worst gaps, ranked.
 This page is that loop shown for one threat; the framework is the same loop for
 all of them.

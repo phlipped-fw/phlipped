@@ -1,0 +1,29 @@
+site_name: PHLIPPED
+site_url: https://phlipped.n0t.space
+docs_dir: ../docs
+site_dir: ../_site
+strict: true
+
+theme:
+  name: material
+
+# gen-files, literate-nav and section-index are added in Tasks 2 and 3,
+# once the generation script and the SUMMARY.md nav exist.
+plugins:
+  - search
+
+validation:
+  nav:
+    omitted_files: warn
+  links:
+    absolute_links: warn
+    unrecognized_links: warn
+    anchors: warn
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Worked thread: worked-thread.md
+  - Data model: data-model.md
+  - Decisions: decisions.md
+  - Building: building.md
