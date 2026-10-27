@@ -1,0 +1,39 @@
+id: PHL-D-011
+name: Suspicious MAC OUI on non-IT VLAN
+techniques: [PHL-T-005]
+data_sources: [PHL-DS-05]
+platform: sigma
+logic: |
+  description: |
+    Detects DHCP lease or NAC event for a MAC OUI belonging to common drop-device hardware
+    (Raspberry Pi Foundation, Espressif, etc.) on a VLAN that should not host such devices.
+  references:
+    - https://github.com/phlipped-fw/phlipped/blob/main/data/techniques/PHL-T-005.md
+  logsource:
+    category: network
+    service: dhcp
+  detection:
+    oui:
+      src_mac|startswith:
+        - 'B8:27:EB'   # Raspberry Pi Foundation
+        - 'DC:A6:32'   # Raspberry Pi Trading
+        - 'E4:5F:01'   # Raspberry Pi Trading
+        - '24:0A:C4'   # Espressif
+        - '7C:DF:A1'   # Espressif
+    not_it_vlan:
+      vlan_id|expand: '%non_it_vlans%'
+    condition: oui and not_it_vlan
+  fields:
+    - src_mac
+    - vlan_id
+    - switch_port
+  level: high
+  tags:
+    - attack.initial_access
+    - attack.t1200
+false_positives:
+  - IT-approved Pi deployments (whitelist by MAC)
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-27

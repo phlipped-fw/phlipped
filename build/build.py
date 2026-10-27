@@ -31,6 +31,12 @@ OBJECT_TYPES: dict[str, dict] = {
         "id_pattern": r"^PHL-DS-\d{2}$",
         "format": "yaml",
     },
+    "detection": {
+        "dir": "data/detections",
+        "schema": "schema/detection.schema.json",
+        "id_pattern": r"^PHL-D-\d{3}$",
+        "format": "yaml",
+    },
 }
 
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---[ \t]*\n?(.*)\Z", re.DOTALL)
@@ -162,12 +168,32 @@ def _resolve_technique_data_sources(graph: dict) -> list[str]:
     return errors
 
 
-# One rule per cross-reference axis. Tasks 3-7 extend this list with a rule
-# each (detection -> technique/data_source, mitigation -> technique,
-# mapping -> subject, assessment -> probe) rather than modifying resolve_refs.
+def _resolve_detection_techniques(graph: dict) -> list[str]:
+    """Every detection's techniques[] must resolve to a loaded technique id."""
+    technique_ids = _ids(graph, "technique")
+    errors: list[str] = []
+    for obj in graph.get("detection", []):
+        errors += _dangling_refs(obj, "techniques", technique_ids, "technique")
+    return errors
+
+
+def _resolve_detection_data_sources(graph: dict) -> list[str]:
+    """Every detection's data_sources[] must resolve to a loaded data source id."""
+    ds_ids = _ids(graph, "data_source")
+    errors: list[str] = []
+    for obj in graph.get("detection", []):
+        errors += _dangling_refs(obj, "data_sources", ds_ids, "data source")
+    return errors
+
+
+# One rule per cross-reference axis. Later tasks extend this list with a rule
+# each (mitigation -> technique, mapping -> subject, assessment -> probe)
+# rather than modifying resolve_refs.
 _REF_RULES = [
     _resolve_technique_tactics,
     _resolve_technique_data_sources,
+    _resolve_detection_techniques,
+    _resolve_detection_data_sources,
 ]
 
 

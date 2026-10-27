@@ -1,0 +1,43 @@
+id: PHL-D-002
+name: HID injection typing burst
+techniques: [PHL-T-002]
+data_sources: [PHL-DS-07, PHL-DS-08]
+platform: sigma
+logic: |
+  description: |
+    Detects shell / scripting host spawned by a foreground-less context immediately followed by
+    a burst of keystrokes at machine speed, indicative of BadUSB / RubberDucky / O.MG cable
+    injection into a locked or kiosk endpoint.
+  references:
+    - https://github.com/phlipped-fw/phlipped/blob/main/data/techniques/PHL-T-002.md
+  logsource:
+    product: windows
+    category: process_creation
+  detection:
+    proc:
+      Image|endswith:
+        - '\cmd.exe'
+        - '\powershell.exe'
+        - '\wscript.exe'
+        - '\mshta.exe'
+      ParentImage|endswith:
+        - '\explorer.exe'
+        - '\winlogon.exe'
+    condition: proc
+  fields:
+    - User
+    - Image
+    - ParentImage
+    - CommandLine
+  level: high
+  tags:
+    - attack.initial_access
+    - attack.t1200
+    - attack.execution
+    - attack.t1059.001
+false_positives:
+  - Legitimate admin scripting bursts (rare on locked sessions)
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-27
