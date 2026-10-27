@@ -1,0 +1,25 @@
+# technique -> MITRE D3FEND countermeasure id. One row per relation; no id or lifecycle.
+- subject_id: PHL-T-001
+  framework: d3fend
+  external_id: "D3-HBPI"
+- subject_id: PHL-T-002
+  framework: d3fend
+  external_id: "D3-PSA"
+- subject_id: PHL-T-003
+  framework: d3fend
+  external_id: "D3-HBPI"
+- subject_id: PHL-T-005
+  framework: d3fend
+  external_id: "D3-NTA"
+- subject_id: PHL-T-005
+  framework: d3fend
+  external_id: "D3-ITF"
+- subject_id: PHL-T-006
+  framework: d3fend
+  external_id: "D3-PSA"
+- subject_id: PHL-T-007
+  framework: d3fend
+  external_id: "D3-NTA"
+- subject_id: PHL-T-008
+  framework: d3fend
+  external_id: "D3-IO"

@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 10
   hardware: [Flipper Zero, HackRF, CC1101 dongle]
   skill_level: 1
-mitre_attack: [T1200]
-mitre_d3fend: []
 observables:
   - Repeated identical RF frames captured by an SDR sensor near the perimeter
   - Gate/garage activation logs without a corresponding tenant authentication event

@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 5
   hardware: [Flipper Zero, Proxmark3]
   skill_level: 1
-mitre_attack: [T1556, T1078]
-mitre_d3fend: [D3-HBPI]
 observables:
   - Badge reader logs with duplicate UID within short timeframe
   - Failed reads on retired card numbers

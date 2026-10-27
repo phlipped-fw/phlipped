@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.n0t.space/schema/mapping.schema.json",
+  "title": "PHLIPPED Mapping",
+  "description": "A relation (edge) from a PHLIPPED technique or mitigation to an external framework control. Not an object: no PHL id, no lifecycle fields.",
+  "type": "object",
+  "required": ["subject_id", "framework", "external_id"],
+  "additionalProperties": false,
+  "properties": {
+    "subject_id": { "type": "string", "pattern": "^PHL-(T|M)-\\d{3}$" },
+    "framework": { "type": "string", "enum": ["attack", "d3fend", "nist-csf", "iso27001", "nis2", "cis"] },
+    "external_id": { "type": "string", "minLength": 1 },
+    "note": { "type": "string" }
+  }
+}

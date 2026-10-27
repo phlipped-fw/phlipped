@@ -23,11 +23,6 @@
     },
     "tactics": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "data_sources": { "type": "array", "items": { "type": "string" } },
-    "mitre_attack": {
-      "type": "array",
-      "items": { "type": "string", "pattern": "^T[0-9]{4}(\\.[0-9]{3})?$" }
-    },
-    "mitre_d3fend": { "type": "array", "items": { "type": "string" } },
     "observables": { "type": "array", "items": { "type": "string" } },
     "known_tools": { "type": "array", "items": { "type": "string" } },
     "severity": { "type": "number", "minimum": 0, "maximum": 10 },

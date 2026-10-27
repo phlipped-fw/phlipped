@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 30
   hardware: [Raspberry Pi, ESP32, LAN Turtle, Packet Squirrel]
   skill_level: 3
-mitre_attack: [T1200, T1557.001, T1187]
-mitre_d3fend: [D3-NTA, D3-ITF]
 observables:
   - DHCP lease for unknown MAC OUI on a user VLAN (Pi Foundation B8:27:EB / DC:A6:32, Espressif 24:0A:C4)
   - Sudden LLMNR / NBT-NS / mDNS responder traffic from a single host

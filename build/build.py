@@ -45,6 +45,9 @@ OBJECT_TYPES: dict[str, dict] = {
     },
 }
 
+MAPPINGS_DIR = "data/mappings"
+MAPPING_SCHEMA = "schema/mapping.schema.json"
+
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---[ \t]*\n?(.*)\Z", re.DOTALL)
 
 
@@ -91,6 +94,42 @@ def load_objects(obj_type: str) -> list[dict]:
         obj["_source"] = path.name
         objects.append(obj)
     return objects
+
+
+def validate_mappings(rows, label: str) -> list[str]:
+    """Validate one mapping file (a list of relations) against the mapping
+    schema. Malformed shapes become errors, never tracebacks."""
+    if not isinstance(rows, list):
+        return [f"{label}: mapping file must be a list of relations"]
+    schema = json.loads((ROOT / MAPPING_SCHEMA).read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict):
+            errors.append(f"{label}[{i}]: relation is not a mapping")
+            continue
+        for err in validator.iter_errors(row):
+            path = "/".join(str(p) for p in err.path) or "(root)"
+            errors.append(f"{label}[{i}]: {path}: {err.message}")
+    return errors
+
+
+def load_mappings() -> tuple[list, list[str]]:
+    """Read every data/mappings/*.yml (each a list of relations), validate it,
+    and flatten into one list. Relations are edges, so they load separately
+    from OBJECT_TYPES."""
+    rows: list = []
+    errors: list[str] = []
+    for path in sorted((ROOT / MAPPINGS_DIR).glob("*.yml")):
+        try:
+            data = yaml.load(path.read_text(encoding="utf-8"), Loader=_Loader)
+        except yaml.YAMLError as exc:
+            errors.append(f"{path.name}: invalid YAML: {exc}")
+            continue
+        errors += validate_mappings(data, path.name)
+        if isinstance(data, list):
+            rows += data
+    return rows, errors
 
 
 def validate_schema(objects: list[dict], schema_path: str) -> list[str]:
@@ -201,15 +240,33 @@ def _resolve_mitigation_techniques(graph: dict) -> list[str]:
     return errors
 
 
+def _resolve_mapping_subjects(graph: dict) -> list[str]:
+    """Every mapping's subject_id (a scalar) must resolve to a loaded technique
+    or mitigation id. Non-dict rows and non-string subjects are skipped: the
+    schema already reports them."""
+    subject_ids = _ids(graph, "technique") | _ids(graph, "mitigation")
+    errors: list[str] = []
+    for row in graph.get("mappings", []):
+        if not isinstance(row, dict):
+            continue
+        subject = row.get("subject_id")
+        if isinstance(subject, str) and subject not in subject_ids:
+            errors.append(
+                f"mapping {row.get('framework')} {row.get('external_id')}: "
+                f"subject_id {subject} does not resolve to a loaded technique or mitigation"
+            )
+    return errors
+
+
 # One rule per cross-reference axis. Later tasks extend this list with a rule
-# each (mapping -> subject, assessment -> probe)
-# rather than modifying resolve_refs.
+# each (assessment -> probe) rather than modifying resolve_refs.
 _REF_RULES = [
     _resolve_technique_tactics,
     _resolve_technique_data_sources,
     _resolve_detection_techniques,
     _resolve_detection_data_sources,
     _resolve_mitigation_techniques,
+    _resolve_mapping_subjects,
 ]
 
 
@@ -218,6 +275,20 @@ def resolve_refs(graph: dict) -> list[str]:
     for rule in _REF_RULES:
         errors += rule(graph)
     return errors
+
+
+def build_matrix(graph: dict) -> dict:
+    """Compliance matrix: subject_id -> {framework: [external_id, ...]}, in
+    file order. Malformed rows are skipped (the schema reports them)."""
+    matrix: dict[str, dict[str, list[str]]] = {}
+    for row in graph.get("mappings", []):
+        if not isinstance(row, dict):
+            continue
+        subject, fw, ext = row.get("subject_id"), row.get("framework"), row.get("external_id")
+        if not all(isinstance(v, str) for v in (subject, fw, ext)):
+            continue
+        matrix.setdefault(subject, {}).setdefault(fw, []).append(ext)
+    return matrix
 
 
 def build() -> tuple[dict, list[str]]:
@@ -229,6 +300,8 @@ def build() -> tuple[dict, list[str]]:
         errors += check_duplicate_ids(objects)
         errors += check_superseded(objects)
         graph[obj_type] = [{k: v for k, v in o.items() if k != "_source"} for o in objects]
+    graph["mappings"], mapping_errors = load_mappings()
+    errors += mapping_errors
     errors += resolve_refs(graph)
     return graph, errors
 

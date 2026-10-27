@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 1200
   hardware: [Raspberry Pi Zero + USB WiFi, pwnagotchi, ESP32 Marauder, laptop]
   skill_level: 2
-mitre_attack: [T1110, T1200]
-mitre_d3fend: []
 observables:
   - DEAUTH frame bursts to force client reauthentication
   - Pmkid capture queries to the AP (no client interaction required for WPA2-PSK with newer attack)

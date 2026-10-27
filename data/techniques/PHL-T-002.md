@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 3
   hardware: [RubberDucky, O.MG Cable, Flipper Zero BadUSB]
   skill_level: 2
-mitre_attack: [T1200, T1059.001]
-mitre_d3fend: [D3-PSA]
 observables:
   - cmd.exe / powershell.exe spawned with no parent UI focus
   - Burst typing speed >80 keystrokes/sec sustained

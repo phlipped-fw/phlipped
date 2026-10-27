@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 60
   hardware: [O.MG Cable, O.MG Programmer]
   skill_level: 3
-mitre_attack: [T1200, T1059.001, T1102]
-mitre_d3fend: [D3-PSA]
 observables:
   - Unfamiliar WiFi SSID broadcast briefly near a victim workstation (cable's hotspot mode)
   - HID device enumeration of an "Apple Inc." or "Lightning" descriptor on a non-Apple host

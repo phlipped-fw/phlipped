@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 30
   hardware: [Flipper Zero, Proxmark3, ChameleonMini]
   skill_level: 2
-mitre_attack: [T1556, T1078]
-mitre_d3fend: [D3-HBPI]
 observables:
   - Repeated reads of the same UID with rapid retries (Mfkey32 / nested key recovery in progress)
   - Card-not-found events followed minutes later by successful auth with same UID

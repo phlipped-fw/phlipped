@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 300
   hardware: [ESP32 Marauder, WiFi Pineapple, laptop with monitor-mode dongle]
   skill_level: 2
-mitre_attack: [T1557, T1539, T1566.002]
-mitre_d3fend: [D3-NTA]
 observables:
   - Duplicate corporate SSID with BSSID outside the known AP MAC pool
   - Sudden DEAUTH frame burst against the legitimate AP (forcing client roam)

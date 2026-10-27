@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 60
   hardware: [USB flash drive, USB Rubber Ducky in storage mode, smartphone in MTP mode]
   skill_level: 1
-mitre_attack: [T1052.001, T1200]
-mitre_d3fend: [D3-IO]
 observables:
   - Sysmon Event ID 6 (driver load) for `usbstor.sys` on locked workstations
   - Windows Event 4663 mass file reads from removable media drive letters

@@ -7,8 +7,6 @@ prerequisites:
   time_seconds: 30
   hardware: [Relay attack pair (active + passive antennas), HackRF, custom SDR setup]
   skill_level: 3
-mitre_attack: [T1200]
-mitre_d3fend: []
 observables:
   - Vehicle unlock event timestamps inconsistent with the registered fob's known location
   - Telematics platforms reporting key-in-vehicle status while owner has fob elsewhere
