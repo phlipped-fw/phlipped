@@ -101,3 +101,34 @@ def test_real_detections_are_loaded_with_inline_logic():
         assert "rule_file" not in d
         assert "detection:" in d["logic"] and "condition:" in d["logic"]
         assert "catalog/threats" not in d["logic"]
+
+
+def test_dangling_mitigation_technique_ref_is_rejected():
+    graph = {"technique": [{"id": "PHL-T-001"}],
+             "mitigation": [{"id": "PHL-M-001", "techniques": ["PHL-T-099"]}]}
+    errs = resolve_refs(graph)
+    assert len(errs) == 1 and "PHL-M-001" in errs[0] and "PHL-T-099" in errs[0]
+
+
+def test_resolving_mitigation_technique_ref_is_clean():
+    graph = {"technique": [{"id": "PHL-T-001"}],
+             "mitigation": [{"id": "PHL-M-001", "techniques": ["PHL-T-001"]}]}
+    assert resolve_refs(graph) == []
+
+
+def test_malformed_mitigation_techniques_do_not_crash_or_add_noise():
+    base = {"technique": [{"id": "PHL-T-001"}]}
+    for bad in ("PHL-T-099", None, 7, {"a": 1}, [["PHL-T-001"]], [None, 3]):
+        graph = {**base, "mitigation": [{"id": "PHL-M-001", "techniques": bad}]}
+        assert resolve_refs(graph) == []
+
+
+def test_real_mitigations_are_seeded_and_resolve():
+    graph, errs = build()
+    assert errs == []
+    mits = graph["mitigation"]
+    assert mits
+    assert {m["phase"] for m in mits} == {"prevent", "respond"}
+    tech_ids = {t["id"] for t in graph["technique"]}
+    for m in mits:
+        assert m["techniques"] and set(m["techniques"]) <= tech_ids

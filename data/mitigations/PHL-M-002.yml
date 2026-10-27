@@ -1,0 +1,13 @@
+id: PHL-M-002
+name: Deploy USB HID lockdown and physical port blockers
+phase: prevent
+techniques:
+- PHL-T-002
+cost_eur: 200
+effort_hours: 16
+description: Deploy a GPO restricting the USB HID class on locked sessions and fit physical port blockers
+  on kiosks, so an injection device is not enumerated as a keyboard.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

@@ -1,0 +1,14 @@
+# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
+id: PHL-M-013
+name: Use Faraday pouches and disable passive keyless entry
+phase: prevent
+techniques:
+- PHL-T-010
+cost_eur: 30
+effort_hours: 2
+description: Store key fobs in a Faraday pouch, enable PIN-to-drive on vehicles that support it, and disable
+  PKE mode in favor of the physical key, so a relayed fob signal cannot unlock or start the vehicle.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

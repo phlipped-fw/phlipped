@@ -1,0 +1,14 @@
+# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
+id: PHL-M-018
+name: Treat sub-GHz replay as physical intrusion and rotate codes
+phase: respond
+techniques:
+- PHL-T-004
+cost_eur: 0
+effort_hours: 2
+description: Handle a sub-GHz replay as a physical intrusion in the incident playbook, and rotate codes
+  where the hardware supports it.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

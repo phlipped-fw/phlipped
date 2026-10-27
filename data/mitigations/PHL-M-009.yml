@@ -1,0 +1,14 @@
+# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
+id: PHL-M-009
+name: Require phishing-resistant MFA (WebAuthn/FIDO2)
+phase: prevent
+techniques:
+- PHL-T-007
+cost_eur: 1500
+effort_hours: 40
+description: Require phishing-resistant MFA such as WebAuthn/FIDO2, so credentials harvested through an
+  evil-twin captive portal are not sufficient to authenticate.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

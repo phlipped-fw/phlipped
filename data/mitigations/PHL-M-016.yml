@@ -1,0 +1,14 @@
+# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
+id: PHL-M-016
+name: Quarantine rogue LAN devices and reset exposed credentials
+phase: respond
+techniques:
+- PHL-T-005
+cost_eur: 0
+effort_hours: 8
+description: Move the first unauthorized MAC into a NAC quarantine VLAN, physically inspect the port,
+  and reset credentials of any user observed authenticating to the rogue host.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

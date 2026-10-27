@@ -1,0 +1,13 @@
+id: PHL-M-005
+name: Enable anti-passback and mantrap on sensitive perimeters
+phase: prevent
+techniques:
+- PHL-T-001
+cost_eur: 2000
+effort_hours: 24
+description: Enable anti-passback in the PACS and couple it with a mantrap or interlock on sensitive perimeters,
+  so a cloned credential cannot be reused to follow someone in.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

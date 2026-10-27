@@ -1,0 +1,15 @@
+id: PHL-M-001
+name: Migrate to mutually authenticated smart-card badges
+phase: prevent
+techniques:
+- PHL-T-001
+- PHL-T-003
+cost_eur: 5000
+effort_hours: 80
+description: Replace 125 kHz proximity and MIFARE Classic badges with iCLASS SE / Seos or DESFire EV3
+  using mutual authentication (AES, diversified keys), so a captured credential cannot be cloned from
+  a short read.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

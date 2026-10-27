@@ -1,0 +1,14 @@
+# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
+id: PHL-M-010
+name: Segregate guest Wi-Fi and use a long rotated PSK where Personal is unavoidable
+phase: prevent
+techniques:
+- PHL-T-009
+cost_eur: 300
+effort_hours: 16
+description: Put guest Wi-Fi on a segregated VLAN with rate limiting, and where WPA Personal cannot be
+  avoided use a long random PSK with scheduled rotation, so a cracked handshake yields little.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

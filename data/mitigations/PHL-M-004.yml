@@ -1,0 +1,13 @@
+id: PHL-M-004
+name: Monitor for rogue and duplicate-SSID access points
+phase: respond
+techniques:
+- PHL-T-007
+cost_eur: 100
+effort_hours: 8
+description: Deploy a Kismet sensor, or use the APs in wireless IDS mode, to alert on BSSIDs advertising
+  the corporate SSID outside the known AP MAC pool.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

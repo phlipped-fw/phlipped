@@ -1,0 +1,15 @@
+# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
+id: PHL-M-006
+name: Replace fixed-code receivers with rolling-code receivers
+phase: prevent
+techniques:
+- PHL-T-004
+cost_eur: 800
+effort_hours: 16
+description: Replace fixed-code gate and garage receivers with rolling-code systems (KeeLoq with secure
+  session keys, or AES-128 systems such as Faac SLH or Came Hormann ProxiMity), so a recorded transmission
+  cannot be replayed.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

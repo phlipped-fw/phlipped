@@ -37,6 +37,12 @@ OBJECT_TYPES: dict[str, dict] = {
         "id_pattern": r"^PHL-D-\d{3}$",
         "format": "yaml",
     },
+    "mitigation": {
+        "dir": "data/mitigations",
+        "schema": "schema/mitigation.schema.json",
+        "id_pattern": r"^PHL-M-\d{3}$",
+        "format": "yaml",
+    },
 }
 
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---[ \t]*\n?(.*)\Z", re.DOTALL)
@@ -186,14 +192,24 @@ def _resolve_detection_data_sources(graph: dict) -> list[str]:
     return errors
 
 
+def _resolve_mitigation_techniques(graph: dict) -> list[str]:
+    """Every mitigation's techniques[] must resolve to a loaded technique id."""
+    technique_ids = _ids(graph, "technique")
+    errors: list[str] = []
+    for obj in graph.get("mitigation", []):
+        errors += _dangling_refs(obj, "techniques", technique_ids, "technique")
+    return errors
+
+
 # One rule per cross-reference axis. Later tasks extend this list with a rule
-# each (mitigation -> technique, mapping -> subject, assessment -> probe)
+# each (mapping -> subject, assessment -> probe)
 # rather than modifying resolve_refs.
 _REF_RULES = [
     _resolve_technique_tactics,
     _resolve_technique_data_sources,
     _resolve_detection_techniques,
     _resolve_detection_data_sources,
+    _resolve_mitigation_techniques,
 ]
 
 

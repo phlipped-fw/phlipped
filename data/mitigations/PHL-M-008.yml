@@ -1,0 +1,15 @@
+# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
+id: PHL-M-008
+name: Move staff Wi-Fi to EAP-TLS and retire PSK SSIDs
+phase: prevent
+techniques:
+- PHL-T-007
+- PHL-T-009
+cost_eur: 3000
+effort_hours: 60
+description: Use WPA2/3-Enterprise with EAP-TLS (mutual certificate authentication, no password to phish
+  or crack offline) for staff, and disable WPA2-PSK SSIDs for staff.
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'
