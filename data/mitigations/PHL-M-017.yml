@@ -1,12 +1,9 @@
-# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
 id: PHL-M-017
 name: Rotate credentials and certificates after wireless compromise
 phase: respond
 techniques:
 - PHL-T-007
 - PHL-T-009
-cost_eur: 0
-effort_hours: 4
 description: Rotate any credentials observed authenticating on a rogue AP, rotate the guest PSK on detection,
   and proactively revoke certificates when EAP-TLS is in use.
 status: experimental

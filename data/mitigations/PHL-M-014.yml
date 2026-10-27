@@ -1,12 +1,9 @@
-# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
 id: PHL-M-014
 name: Isolate endpoint and revoke credentials after HID injection
 phase: respond
 techniques:
 - PHL-T-002
 - PHL-T-006
-cost_eur: 0
-effort_hours: 4
 description: On a typing-burst alert, isolate the endpoint, review the last 60 s of the process tree,
   revoke any credentials potentially touched, and physically seize the cable or device for forensics.
 status: experimental

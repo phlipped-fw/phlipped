@@ -1,11 +1,8 @@
-# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
 id: PHL-M-012
 name: Disable USB mass storage on shared endpoints, encrypt disks, shorten session timeout
 phase: prevent
 techniques:
 - PHL-T-008
-cost_eur: 200
-effort_hours: 16
 description: Disable USB mass storage by GPO on shared and kiosk endpoints, enable BitLocker so offline
   disk reads are blocked, and set an aggressive session timeout (60 s) on signage and kiosks.
 status: experimental

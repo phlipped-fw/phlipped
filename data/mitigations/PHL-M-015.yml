@@ -1,11 +1,8 @@
-# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
 id: PHL-M-015
 name: Revoke anomalous badge UIDs and inspect the last user
 phase: respond
 techniques:
 - PHL-T-003
-cost_eur: 0
-effort_hours: 2
 description: Run the revocation procedure for any UID flagged as anomalous on the PACS, and carry out
   a physical inspection of the last user.
 status: experimental

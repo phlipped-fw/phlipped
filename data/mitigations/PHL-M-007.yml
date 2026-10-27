@@ -1,11 +1,8 @@
-# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
 id: PHL-M-007
 name: Disable LLMNR and NBT-NS, require SMB signing
 phase: prevent
 techniques:
 - PHL-T-005
-cost_eur: 0
-effort_hours: 12
 description: Disable LLMNR and NBT-NS by GPO and require SMB signing, removing the name-resolution poisoning
   and relay paths a dropped LAN device relies on.
 status: experimental

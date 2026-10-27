@@ -1,11 +1,8 @@
-# cost_eur and effort_hours are seed estimates, not taken from the assess checklist
 id: PHL-M-011
 name: Use USB data blockers and sealed inventory-tracked cables
 phase: prevent
 techniques:
 - PHL-T-006
-cost_eur: 300
-effort_hours: 8
 description: Fit USB data blockers on charging stations, issue sealed inventory-tracked cables to executives,
   and use physically distinct cable colors per location, so a swapped malicious cable is noticed.
 status: experimental
