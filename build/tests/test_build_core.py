@@ -25,3 +25,29 @@ def test_valid_techniques_pass_schema():
 def test_missing_superseded_target_is_rejected():
     errs = check_superseded([{"id": "PHL-T-009", "deprecated": {"superseded_by": "PHL-T-099"}}])
     assert any("PHL-T-099" in e for e in errs)
+
+
+def test_schema_invalid_technique_is_rejected():
+    tech = next(o for o in load_objects("technique") if o["id"] == "PHL-T-001")
+    bad = {k: v for k, v in tech.items() if k != "version"}
+    errs = validate_schema([bad], "schema/technique.schema.json")
+    assert any("version" in e for e in errs)
+
+
+def test_draft_status_is_accepted():
+    tech = dict(load_objects("technique")[0], status="draft")
+    assert validate_schema([tech], "schema/technique.schema.json") == []
+
+
+def test_non_mapping_deprecated_is_an_error_not_a_crash():
+    errs = check_superseded([{"id": "PHL-T-009", "deprecated": "PHL-T-010"}])
+    assert any("PHL-T-009" in e and "deprecated" in e for e in errs)
+
+
+def test_empty_frontmatter_is_an_error_not_a_crash(tmp_path):
+    from build.build import _parse
+
+    f = tmp_path / "PHL-T-999.md"
+    f.write_text("---\n\n---\n\nbody\n", encoding="utf-8")
+    errs = validate_schema([dict(_parse(f, "frontmatter"), _source=f.name)], "schema/technique.schema.json")
+    assert any("PHL-T-999.md" in e and "frontmatter" in e for e in errs)

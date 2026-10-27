@@ -35,17 +35,27 @@ _Loader.yaml_implicit_resolvers = {
 
 
 def _parse(path: Path, fmt: str) -> dict:
+    """Parse one source file. Malformed input yields a stub carrying
+    `_parse_error`, which validate_schema reports, so bad data never
+    surfaces as a traceback."""
     text = path.read_text(encoding="utf-8")
+    body = None
     if fmt == "frontmatter":
         m = FRONTMATTER.match(text)
         if not m:
-            raise ValueError(f"{path.name}: no YAML frontmatter")
-        obj = yaml.load(m.group(1), Loader=_Loader)
-        obj["body"] = m.group(2)
-        return obj
-    if fmt == "yaml":
-        return yaml.load(text, Loader=_Loader)
-    raise ValueError(f"unknown format {fmt!r}")
+            return {"_parse_error": "no YAML frontmatter"}
+        text, body = m.group(1), m.group(2)
+    elif fmt != "yaml":
+        raise ValueError(f"unknown format {fmt!r}")
+    try:
+        obj = yaml.load(text, Loader=_Loader)
+    except yaml.YAMLError as exc:
+        return {"_parse_error": f"invalid YAML: {exc}"}
+    if not isinstance(obj, dict):
+        return {"_parse_error": "frontmatter is empty or not a mapping"}
+    if body is not None:
+        obj["body"] = body
+    return obj
 
 
 def load_objects(obj_type: str) -> list[dict]:
@@ -65,6 +75,9 @@ def validate_schema(objects: list[dict], schema_path: str) -> list[str]:
     errors: list[str] = []
     for obj in objects:
         label = obj.get("_source", obj.get("id", "?"))
+        if "_parse_error" in obj:
+            errors.append(f"{label}: {obj['_parse_error']}")
+            continue
         data = {k: v for k, v in obj.items() if k not in ("_source", "body")}
         for err in validator.iter_errors(data):
             path = "/".join(str(p) for p in err.path) or "(root)"
@@ -88,7 +101,13 @@ def check_superseded(objects: list[dict]) -> list[str]:
     ids = {o.get("id") for o in objects}
     errors: list[str] = []
     for obj in objects:
-        target = (obj.get("deprecated") or {}).get("superseded_by")
+        deprecated = obj.get("deprecated")
+        if deprecated is None:
+            continue
+        if not isinstance(deprecated, dict):
+            errors.append(f"{obj.get('id')}: deprecated must be a mapping")
+            continue
+        target = deprecated.get("superseded_by")
         if target and target not in ids:
             errors.append(f"{obj.get('id')}: superseded_by {target} does not exist")
     return errors
