@@ -28,6 +28,14 @@ def _tech_link(tid, prefix=""):
     return f"[{tid}]({prefix}techniques/{tid}.md)"
 
 
+def _subject_link(sid):
+    if sid.startswith("PHL-T-"):
+        return f"[{sid}](techniques/{sid}.md)"
+    if sid.startswith("PHL-M-"):
+        return f"[{sid}](mitigations/{sid}.md)"
+    return sid
+
+
 def _strip_leading_h1(body):
     lines = body.strip("\n").splitlines()
     if lines and lines[0].startswith("# "):
@@ -111,7 +119,7 @@ def mappings_table(matrix):
     out = ["| Technique | " + " | ".join(labels) + " |", "|---|" + "---|" * len(frameworks)]
     for tid in sorted(matrix):
         cells = [", ".join(matrix[tid].get(fw, [])) for fw in frameworks]
-        out.append(f"| {_tech_link(tid)} | " + " | ".join(cells) + " |")
+        out.append(f"| {_subject_link(tid)} | " + " | ".join(cells) + " |")
     return "\n".join(out) + "\n"
 
 

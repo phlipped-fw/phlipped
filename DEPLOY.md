@@ -39,5 +39,5 @@ Run by hand, not by CI or any script. These steps touch live DNS and a public si
 1. In the Cloudflare dashboard, point the `phlipped.n0t.space` Pages project at this repository and apply the settings above.
 2. Push or merge to `main` and open the preview build. Check that the technique catalog, the tactic matrix and the MITRE mappings table all render, and that internal links between them resolve.
 3. Promote the build and attach the custom domain `phlipped.n0t.space` to the project. Confirm the site loads over HTTPS on that domain.
-4. Retire `docs.n0t.space`: remove its custom domain and take the old Pages project down. Do not set up a redirect. The decision of 2026-10-27 is to drop the old address outright.
-5. Plan 2b, which removes `apps/docs` from the n0t.space repo, starts only after step 3 is confirmed live. Do not begin it earlier.
+4. Retire `docs.n0t.space`: remove its custom domain and take the old Pages project down. Do not set up a redirect: the old address is retired outright.
+5. Decoupling the separate n0t.space repo from the old docs app happens only after step 3 is confirmed live. Do not begin it earlier.

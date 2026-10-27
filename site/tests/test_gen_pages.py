@@ -91,6 +91,16 @@ def test_mappings_table_rows_and_frameworks():
     assert "T1556, T1078" in md and "None" not in md
 
 
+def test_mappings_table_links_by_subject_kind():
+    md = g.mappings_table({"PHL-T-001": {"attack": ["T1200"]},
+                           "PHL-M-002": {"attack": ["M1030"]},
+                           "OTHER-9": {"attack": ["T1"]}})
+    assert "[PHL-T-001](techniques/PHL-T-001.md)" in md
+    assert "[PHL-M-002](mitigations/PHL-M-002.md)" in md
+    assert "techniques/PHL-M-002" not in md
+    assert "[OTHER-9]" not in md and "| OTHER-9 |" in md
+
+
 def test_catalog_index_lists_every_technique():
     md = g.catalog_index([T, {**T, "id": "PHL-T-001", "name": "HID"}])
     assert "PHL-T-001" in md and "PHL-T-003" in md and "PHL-T-003.md" in md

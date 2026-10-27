@@ -52,7 +52,7 @@ data sources, three detections, eighteen mitigations, six assessment items, and
 twenty-nine MITRE mappings, all validated by the build and covered by tests. The
 taxonomy is provisional and is refined by a systematic literature review. The
 documentation site is built with Material for MkDocs from `phlipped.json` and
-deploys through Cloudflare Pages (see `docs/deploy.md`). Full detection coverage
+deploys through Cloudflare Pages (see `DEPLOY.md`). Full detection coverage
 and a live validation lab are roadmap, not in this release.
 
 ## License

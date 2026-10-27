@@ -81,7 +81,7 @@ CI runs on every push and pull request:
 
 1. install dependencies;
 2. `python -m build.build` (schema, cross-references, duplicates, rule integrity);
-3. `pytest build/tests tools/assess -q`.
+3. `pytest build/tests tools/assess site/tests -q`;
+4. `mkdocs build --strict -f site/mkdocs.yml`, the strict site build.
 
-A green build gates deploy. The site build is added to CI in the site and
-infrastructure plan.
+A green build gates deploy.
