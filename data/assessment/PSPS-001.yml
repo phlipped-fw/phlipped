@@ -1,0 +1,9 @@
+id: PSPS-001
+question: "Badge system uses iCLASS SE / Seos or DESFire EV3 (not Prox 125 kHz or MIFARE Classic)?"
+weight: 9
+probes: [PHL-T-001]
+recommendation: "Migrate to iCLASS SE / Seos or DESFire EV3 with mutual authentication."
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

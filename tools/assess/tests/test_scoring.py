@@ -2,7 +2,7 @@ from phlipped_assess.scoring import Item, gaps, psps
 
 
 def _item(id, weight):
-    return Item(id=id, question="q", weight=weight, threat_refs=[], recommendation="r", cost_eur=0, effort_hours=0)
+    return Item(id=id, question="q", weight=weight, probes=["PHL-T-001"], recommendation="r")
 
 
 def test_psps_is_zero_when_all_answers_are_no():

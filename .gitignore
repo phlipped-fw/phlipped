@@ -9,4 +9,5 @@ __pycache__/
 catalog/catalog.json
 site/public/
 assessment.json
+phlipped.json
 report.html

@@ -1,0 +1,9 @@
+id: PSPS-003
+question: "802.1X NAC is enforced on all publicly accessible RJ45 ports?"
+weight: 9
+probes: [PHL-T-005]
+recommendation: "Enable 802.1X with MAB fallback on access switches; alert on MAB-only authentications."
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

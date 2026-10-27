@@ -13,10 +13,13 @@ pip install -e .
 ## Use
 
 ```bash
+python -m build.build                     # from the repo root: writes phlipped.json
 phlipped-assess run                       # interactive checklist
 phlipped-assess run --answers answers.yml # non-interactive
 phlipped-assess report --out report.html
 ```
+
+Assessment items are read from the built `phlipped.json` (default `./phlipped.json`, override with `--data` on `run`, `report` and `list-items`).
 
 ## License
 

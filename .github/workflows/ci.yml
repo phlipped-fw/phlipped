@@ -17,7 +17,7 @@ jobs:
       - name: catalog schema validation
         run: python catalog/build.py
       - name: assess unit tests
-        run: pytest assess -q
+        run: pytest tools/assess -q
       - name: build site
         run: python site/build.py
       - name: link check

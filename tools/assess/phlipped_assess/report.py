@@ -26,16 +26,14 @@ _TEMPLATE = Template(
 {% if gaps %}
 <h2>Top gaps (priority order)</h2>
 <table>
-<thead><tr><th>ID</th><th class="w">Weight</th><th>Recommendation</th><th>Threats</th><th class="w">&euro;</th><th class="w">hrs</th></tr></thead>
+<thead><tr><th>ID</th><th class="w">Weight</th><th>Recommendation</th><th>Probes</th></tr></thead>
 <tbody>
 {% for g in gaps %}
 <tr>
  <td>{{ g.id }}</td>
  <td class="w">{{ g.weight }}</td>
  <td>{{ g.recommendation }}</td>
- <td>{% for ref in g.threat_refs %}<a href="{{ base_url }}/{{ ref }}.html">{{ ref }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</td>
- <td class="w">{{ g.cost_eur }}</td>
- <td class="w">{{ g.effort_hours }}</td>
+ <td>{% for ref in g.probes %}{% if ref.startswith("PHL-T-") %}<a href="{{ base_url }}/{{ ref }}.html">{{ ref }}</a>{% else %}{{ ref }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</td>
 </tr>
 {% endfor %}
 </tbody>

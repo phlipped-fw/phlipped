@@ -1,0 +1,9 @@
+id: PSPS-002
+question: "USB ports on corporate endpoints are physically blocked OR disabled via GPO for HID class on locked sessions?"
+weight: 8
+probes: [PHL-T-002]
+recommendation: "Deploy USB lockdown GPO; install physical port blockers on kiosks."
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

@@ -13,7 +13,7 @@ Live site: **https://phlipped.n0t.space**
 
 ```
 catalog/   threat source (PHL-T-NNN.md) + JSON schema + build.py -> catalog.json
-assess/    phlipped-assess: CLI that scores posture (PSPS) and reports gaps
+tools/assess/    phlipped-assess: CLI that scores posture (PSPS) and reports gaps
 rules/     detection rules (Sigma + Wazuh), PHL-D-NNN, mapped 1:1 to threats
 lab/       docker-compose Wazuh lab for validating rules (documented)
 site/      static site generator -> site/public (deployed to phlipped.n0t.space)
@@ -27,7 +27,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
 
 python catalog/build.py        # validate threats + build catalog.json
-pytest assess -q               # run the assessment tool's tests
+pytest tools/assess -q               # run the assessment tool's tests
 python site/build.py           # build the static site into site/public
 python site/linkcheck.py       # check internal links
 ```

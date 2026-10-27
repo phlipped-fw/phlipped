@@ -132,3 +132,16 @@ def test_real_mitigations_are_seeded_and_resolve():
     tech_ids = {t["id"] for t in graph["technique"]}
     for m in mits:
         assert m["techniques"] and set(m["techniques"]) <= tech_ids
+
+
+def test_dangling_assessment_probe_ref_is_rejected():
+    graph = {"technique": [{"id": "PHL-T-001"}], "mitigation": [{"id": "PHL-M-001"}],
+             "assessment": [{"id": "PSPS-001", "probes": ["PHL-T-001", "PHL-M-001", "PHL-T-099"]}]}
+    errs = resolve_refs(graph)
+    assert len(errs) == 1 and "PHL-T-099" in errs[0]
+
+
+def test_resolving_assessment_probes_are_clean():
+    graph = {"technique": [{"id": "PHL-T-001"}], "mitigation": [{"id": "PHL-M-001"}],
+             "assessment": [{"id": "PSPS-001", "probes": ["PHL-T-001", "PHL-M-001"]}]}
+    assert resolve_refs(graph) == []

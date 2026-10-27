@@ -25,4 +25,4 @@ phlipped-assess = "phlipped_assess.cli:cli"
 include = ["phlipped_assess*"]
 
 [tool.setuptools.package-data]
-phlipped_assess = ["data/*.yml", "templates/*.html"]
+phlipped_assess = ["templates/*.html"]

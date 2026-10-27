@@ -7,10 +7,8 @@ def _item(id, weight, refs):
         id=id,
         question=f"q {id}",
         weight=weight,
-        threat_refs=refs,
+        probes=refs,
         recommendation=f"fix {id}",
-        cost_eur=100,
-        effort_hours=8,
     )
 
 
@@ -33,3 +31,10 @@ def test_report_renders_gaps_in_given_priority_order():
     gaps = [_item("PSPS-A", 9, []), _item("PSPS-B", 3, [])]
     html = render_report(0.0, gaps)
     assert html.index("PSPS-A") < html.index("PSPS-B")
+
+
+def test_report_links_technique_probes_but_not_mitigation_probes():
+    html = render_report(0.0, [_item("PSPS-001", 9, ["PHL-T-003", "PHL-M-001"])])
+    assert '<a href="/threats/PHL-T-003.html">PHL-T-003</a>' in html
+    assert "PHL-M-001" in html
+    assert "/threats/PHL-M-001" not in html

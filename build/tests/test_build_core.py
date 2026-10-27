@@ -51,3 +51,26 @@ def test_empty_frontmatter_is_an_error_not_a_crash(tmp_path):
     f.write_text("---\n\n---\n\nbody\n", encoding="utf-8")
     errs = validate_schema([dict(_parse(f, "frontmatter"), _source=f.name)], "schema/technique.schema.json")
     assert any("PHL-T-999.md" in e and "frontmatter" in e for e in errs)
+
+
+def test_main_writes_artifact_only_on_clean_build(tmp_path, monkeypatch):
+    import json
+    import build.build as b
+
+    graph = {"technique": [{"id": "PHL-T-001"}], "mappings": [
+        {"subject_id": "PHL-T-001", "framework": "f", "external_id": "x"}]}
+    monkeypatch.setattr(b, "ROOT", tmp_path)
+
+    monkeypatch.setattr(b, "build", lambda: (graph, ["boom"]))
+    try:
+        b.main()
+        raise AssertionError("expected SystemExit")
+    except SystemExit as exc:
+        assert exc.code == 1
+    assert not (tmp_path / "phlipped.json").exists()
+
+    monkeypatch.setattr(b, "build", lambda: (graph, []))
+    b.main()
+    out = json.loads((tmp_path / "phlipped.json").read_text())
+    assert out["technique"] == [{"id": "PHL-T-001"}]
+    assert out["mappings_matrix"] == {"PHL-T-001": {"f": ["x"]}}

@@ -1,0 +1,9 @@
+id: PSPS-006
+question: "CCTV coverage validated against walkthrough-identified blind spots?"
+weight: 5
+probes: [PHL-T-004, PHL-T-010]
+recommendation: "Quarterly walkthrough to confirm coverage; rotate field of view as layout changes."
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

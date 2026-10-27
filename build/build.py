@@ -43,10 +43,17 @@ OBJECT_TYPES: dict[str, dict] = {
         "id_pattern": r"^PHL-M-\d{3}$",
         "format": "yaml",
     },
+    "assessment": {
+        "dir": "data/assessment",
+        "schema": "schema/assessment.schema.json",
+        "id_pattern": r"^PSPS-\d{3}$",
+        "format": "yaml",
+    },
 }
 
 MAPPINGS_DIR = "data/mappings"
 MAPPING_SCHEMA = "schema/mapping.schema.json"
+ARTIFACT = "phlipped.json"
 
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---[ \t]*\n?(.*)\Z", re.DOTALL)
 
@@ -258,6 +265,15 @@ def _resolve_mapping_subjects(graph: dict) -> list[str]:
     return errors
 
 
+def _resolve_assessment_probes(graph: dict) -> list[str]:
+    """Every assessment item's probes[] must resolve to a loaded technique or mitigation id."""
+    probe_ids = _ids(graph, "technique") | _ids(graph, "mitigation")
+    errors: list[str] = []
+    for obj in graph.get("assessment", []):
+        errors += _dangling_refs(obj, "probes", probe_ids, "technique or mitigation")
+    return errors
+
+
 # One rule per cross-reference axis. Later tasks extend this list with a rule
 # each (assessment -> probe) rather than modifying resolve_refs.
 _REF_RULES = [
@@ -267,6 +283,7 @@ _REF_RULES = [
     _resolve_detection_data_sources,
     _resolve_mitigation_techniques,
     _resolve_mapping_subjects,
+    _resolve_assessment_probes,
 ]
 
 
@@ -313,6 +330,10 @@ def main() -> None:
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         raise SystemExit(1)
+    artifact = dict(graph, mappings_matrix=build_matrix(graph))
+    (ROOT / ARTIFACT).write_text(
+        json.dumps(artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     counts = ", ".join(f"{len(v)} {k}" for k, v in graph.items())
     print(f"build ok ({counts})")
 

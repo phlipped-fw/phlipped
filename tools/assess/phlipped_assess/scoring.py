@@ -9,10 +9,8 @@ class Item:
     id: str
     question: str
     weight: int
-    threat_refs: list[str]
+    probes: list[str]
     recommendation: str
-    cost_eur: int
-    effort_hours: int
 
 
 @dataclass

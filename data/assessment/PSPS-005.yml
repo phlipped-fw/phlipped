@@ -1,0 +1,9 @@
+id: PSPS-005
+question: "Anti-passback and tailgating detection configured at entry points?"
+weight: 6
+probes: [PHL-T-001]
+recommendation: "Enable anti-passback in the PACS; couple with mantrap or interlock on sensitive perimeters."
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'

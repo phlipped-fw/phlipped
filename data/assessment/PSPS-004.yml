@@ -1,0 +1,9 @@
+id: PSPS-004
+question: "Rogue AP / duplicate-SSID monitoring is in place on premises?"
+weight: 7
+probes: [PHL-T-007]
+recommendation: "Deploy Kismet sensor or use AP wireless IDS to alert on BSSIDs advertising corp SSID outside the known AP MAC pool."
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: '2026-10-27'
