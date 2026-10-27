@@ -15,6 +15,10 @@ observables:
   - Unknown WiFi MAC OUI observed continuously near the perimeter (pwnagotchi badge frame leaks)
 known_tools: [pwnagotchi, hcxdumptool, aircrack-ng suite, hashcat, ESP32 Marauder]
 severity: 6.0
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # WPA handshake capture and offline cracking

@@ -16,6 +16,10 @@ observables:
   - Process spawn with characteristics of `PHL-T-002` typing-burst
 known_tools: [O.MG Cable (USB-A, USB-C, Lightning variants)]
 severity: 8.5
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # O.MG Cable

@@ -15,6 +15,10 @@ observables:
   - Tenant complaints of "ghost openings" outside their usage pattern
 known_tools: [Flipper Zero, HackRF One, YARD Stick One, rtl_433]
 severity: 6.5
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # Sub-GHz fixed-code replay

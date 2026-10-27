@@ -14,6 +14,10 @@ observables:
   - Failed reads on retired card numbers
 known_tools: [Flipper Zero, Proxmark3, ChameleonMini]
 severity: 7.5
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # HID Prox 125 kHz cloning

@@ -15,6 +15,10 @@ observables:
   - File copies sourced from sensitive shares to a removable volume
 known_tools: [any USB flash drive, Bash Bunny in exfil mode, KeyCroc, USaBUSe]
 severity: 7.0
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # USB mass-storage exfiltration

@@ -15,6 +15,10 @@ observables:
   - Inventory drift in PACS when emulated cards reuse UIDs of decommissioned ones
 known_tools: [Flipper Zero (Mfkey32), Proxmark3, ChameleonMini, mfoc, mfcuk]
 severity: 8.0
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # MIFARE Classic key recovery and cloning

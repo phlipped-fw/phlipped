@@ -16,6 +16,10 @@ observables:
   - DHCPv6 advertisements from a non-infrastructure host (mitm6 indicator)
 known_tools: [Responder, mitm6, ntlmrelayx, Impacket, LAN Turtle, Bash Bunny]
 severity: 9.2
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # Drop device on corporate LAN

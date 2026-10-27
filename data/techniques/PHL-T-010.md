@@ -14,6 +14,10 @@ observables:
   - Telematics platforms reporting key-in-vehicle status while owner has fob elsewhere
 known_tools: [Commercial relay devices ("car opener boxes"), HackRF + custom firmware]
 severity: 7.0
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # Vehicle key fob relay attack

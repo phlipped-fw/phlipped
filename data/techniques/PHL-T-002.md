@@ -15,6 +15,10 @@ observables:
   - USB device enumeration of HID class on locked workstations
 known_tools: [RubberDucky, Bash Bunny, O.MG Cable, Flipper Zero]
 severity: 8.0
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # HID injection via BadUSB

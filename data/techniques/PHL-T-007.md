@@ -16,6 +16,10 @@ observables:
   - Captive-portal-style HTTP 302 to an attacker-controlled host
 known_tools: [WiFi Pineapple, ESP32 Marauder, hostapd-wpe, Airgeddon]
 severity: 7.5
+status: experimental
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-26
 ---
 
 # Evil twin rogue AP
