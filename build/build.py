@@ -83,8 +83,10 @@ _Loader.yaml_implicit_resolvers = {
 
 def _parse(path: Path, fmt: str) -> dict:
     """Parse one source file. Malformed input yields a stub carrying
-    `_parse_error`, which validate_schema reports, so bad data never
-    surfaces as a traceback."""
+    `_parse_error`, which validate_schema reports, so ordinary bad data is a
+    per-file error rather than a traceback. Edge cases (non-string ids, which
+    the check_* functions report; undecodable UTF-8) are not guaranteed
+    clean."""
     text = path.read_text(encoding="utf-8")
     body = None
     if fmt == "frontmatter":
@@ -173,7 +175,9 @@ def check_duplicate_ids(objects: list[dict]) -> list[str]:
     seen: set[str] = set()
     for obj in objects:
         oid = obj.get("id")
-        if oid in seen:
+        if oid is not None and not isinstance(oid, str):
+            errors.append(f"{obj.get('_source', '?')}: id must be a string")
+        elif oid in seen:
             errors.append(f"duplicate id {oid}")
         elif oid:
             seen.add(oid)
@@ -199,9 +203,13 @@ def check_duplicate_mappings(rows: list) -> list[str]:
 
 
 def check_superseded(objects: list[dict]) -> list[str]:
-    ids = {o.get("id") for o in objects}
+    ids = {o["id"] for o in objects if isinstance(o.get("id"), str)}
     errors: list[str] = []
     for obj in objects:
+        oid = obj.get("id")
+        if oid is not None and not isinstance(oid, str):
+            errors.append(f"{obj.get('_source', '?')}: id must be a string")
+            continue
         deprecated = obj.get("deprecated")
         if deprecated is None:
             continue
@@ -209,8 +217,10 @@ def check_superseded(objects: list[dict]) -> list[str]:
             errors.append(f"{obj.get('id')}: deprecated must be a mapping")
             continue
         target = deprecated.get("superseded_by")
-        if target and target not in ids:
-            errors.append(f"{obj.get('id')}: superseded_by {target} does not exist")
+        if target is not None and not isinstance(target, str):
+            errors.append(f"{oid}: superseded_by must be a string")
+        elif target and target not in ids:
+            errors.append(f"{oid}: superseded_by {target} does not exist")
     return errors
 
 

@@ -74,3 +74,25 @@ def test_main_writes_artifact_only_on_clean_build(tmp_path, monkeypatch):
     out = json.loads((tmp_path / "phlipped.json").read_text())
     assert out["techniques"] == [{"id": "PHL-T-001"}]
     assert out["mappings_matrix"] == {"PHL-T-001": {"f": ["x"]}}
+
+
+def test_deprecated_tactic_validates():
+    tactic = dict(
+        load_objects("tactic")[0],
+        deprecated={"superseded_by": "PHL-TA-02", "reason": "merged into a broader tactic"},
+    )
+    assert validate_schema([tactic], "schema/tactic.schema.json") == []
+
+
+def test_non_string_id_is_a_clean_error_not_a_typeerror():
+    objs = [
+        {"id": ["PHL-T-001"], "_source": "a.md"},
+        {"id": {"x": 1}, "_source": "b.md"},
+        {"id": "PHL-T-002", "deprecated": {"superseded_by": ["PHL-T-001"]}},
+    ]
+    errs = check_duplicate_ids(objs)
+    assert any("a.md" in e and "id must be a string" in e for e in errs)
+    assert any("b.md" in e and "id must be a string" in e for e in errs)
+    errs = check_superseded(objs)
+    assert any("a.md" in e and "id must be a string" in e for e in errs)
+    assert any("PHL-T-002" in e and "superseded_by must be a string" in e for e in errs)
