@@ -7,10 +7,13 @@ strict: true
 theme:
   name: material
 
-# gen-files, literate-nav and section-index are added in Tasks 2 and 3,
-# once the generation script and the SUMMARY.md nav exist.
 plugins:
   - search
+  - gen-files:
+      scripts: [gen/gen_pages.py]
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
 
 validation:
   nav:
@@ -24,6 +27,11 @@ nav:
   - Home: index.md
   - About: about.md
   - Worked thread: worked-thread.md
+  - Catalog: techniques/
+  - Detections: detections/
+  - Mitigations: mitigations/
+  - Matrix: matrix.md
+  - Mappings: mappings.md
   - Data model: data-model.md
   - Decisions: decisions.md
   - Building: building.md
