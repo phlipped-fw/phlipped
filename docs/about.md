@@ -30,8 +30,8 @@ lab are on the roadmap, not in this release.
 ## How the pieces fit
 
 ```
-threats  ->  catalog.json  ->  this site (what the attacks are)
-                           ->  assessment score (how exposed you are)
+threats  ->  phlipped.json  ->  this site (what the attacks are)
+                            ->  assessment score (how exposed you are)
 indicators  ->  detection rules (how you catch it)
             ->  remediation (how you close it)
 ```

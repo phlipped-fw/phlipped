@@ -30,7 +30,7 @@ is to turn them into something that actually fires an alert.
 ## 3. The detection
 
 PHLIPPED ships a detection rule for exactly this behaviour:
-[`PHL-D-003`](https://github.com/phlipped-fw/phlipped/blob/main/rules/sigma/PHL-D-003_mifare_uid_anomaly.yml).
+[`PHL-D-003`](https://github.com/phlipped-fw/phlipped/blob/main/data/detections/PHL-D-003.yml).
 It reads the access-control system's event log and raises a high-severity alert
 when it sees the same badge ID at incompatible readers, or the failed-reads-then-
 entry pattern above. Every detection rule maps back to the threat it defends
