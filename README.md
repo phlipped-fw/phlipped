@@ -50,9 +50,10 @@ phlipped-assess report --in assessment.json --out report.html
 Alpha. The data layer is complete: ten techniques, a provisional tactic axis, eight
 data sources, three detections, eighteen mitigations, six assessment items, and
 twenty-nine MITRE mappings, all validated by the build and covered by tests. The
-taxonomy is provisional and is refined by a systematic literature review. Full
-detection coverage, the Material for MkDocs site, and a live validation lab are
-roadmap, not in this release.
+taxonomy is provisional and is refined by a systematic literature review. The
+documentation site is built with Material for MkDocs from `phlipped.json` and
+deploys through Cloudflare Pages (see `docs/deploy.md`). Full detection coverage
+and a live validation lab are roadmap, not in this release.
 
 ## License
 

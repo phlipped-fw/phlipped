@@ -78,6 +78,7 @@ nav:
       - Data model: data-model.md
       - Decisions: decisions.md
       - Building: building.md
+      - Deploying: deploy.md
       - Worked thread: worked-thread.md
       - About: about.md
       - Tags: tags.md
