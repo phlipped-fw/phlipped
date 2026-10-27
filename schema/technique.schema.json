@@ -3,6 +3,7 @@
   "$id": "https://docs.n0t.space/schema/technique.schema.json",
   "title": "PHLIPPED Technique",
   "type": "object",
+  "additionalProperties": false,
   "required": ["id", "name", "category", "prerequisites", "tactics", "severity", "status", "version", "added", "modified"],
   "properties": {
     "id": { "type": "string", "pattern": "^PHL-T-[0-9]{3}$" },

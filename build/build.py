@@ -5,6 +5,7 @@ Exits non-zero if anything is invalid so CI fails on bad data."""
 import json
 import re
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -54,6 +55,18 @@ OBJECT_TYPES: dict[str, dict] = {
 MAPPINGS_DIR = "data/mappings"
 MAPPING_SCHEMA = "schema/mapping.schema.json"
 ARTIFACT = "phlipped.json"
+DIST = "dist"
+FRAMEWORK_VERSION = "0.1.0"
+
+# object type -> key in the emitted artifact
+ARTIFACT_KEYS = {
+    "tactic": "tactics",
+    "technique": "techniques",
+    "data_source": "data_sources",
+    "detection": "detections",
+    "mitigation": "mitigations",
+    "assessment": "assessment",
+}
 
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---[ \t]*\n?(.*)\Z", re.DOTALL)
 
@@ -164,6 +177,24 @@ def check_duplicate_ids(objects: list[dict]) -> list[str]:
             errors.append(f"duplicate id {oid}")
         elif oid:
             seen.add(oid)
+    return errors
+
+
+def check_duplicate_mappings(rows: list) -> list[str]:
+    """Reject the same relation (subject_id + framework + external_id) twice.
+    Malformed rows are skipped: the mapping schema reports them."""
+    errors: list[str] = []
+    seen: set[tuple] = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        key = (row.get("subject_id"), row.get("framework"), row.get("external_id"))
+        if not all(isinstance(v, str) for v in key):
+            continue
+        if key in seen:
+            errors.append(f"duplicate mapping {key[0]} {key[1]} {key[2]}")
+        else:
+            seen.add(key)
     return errors
 
 
@@ -319,21 +350,51 @@ def build() -> tuple[dict, list[str]]:
         graph[obj_type] = [{k: v for k, v in o.items() if k != "_source"} for o in objects]
     graph["mappings"], mapping_errors = load_mappings()
     errors += mapping_errors
+    errors += check_duplicate_mappings(graph["mappings"])
     errors += resolve_refs(graph)
     return graph, errors
 
 
-def main() -> None:
+def assemble(graph: dict) -> dict:
+    """The combined artifact: version stamp, one array per object type, the
+    flat mapping list, and the compliance matrix."""
+    artifact: dict = {
+        "framework_version": FRAMEWORK_VERSION,
+        "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+    }
+    for obj_type, key in ARTIFACT_KEYS.items():
+        artifact[key] = graph.get(obj_type, [])
+    artifact["mappings"] = graph.get("mappings", [])
+    artifact["mappings_matrix"] = build_matrix(graph)
+    return artifact
+
+
+def _write_json(path: Path, data) -> None:
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def emit(graph: dict, out_dir: Path | None = None) -> None:
+    """Write phlipped.json under out_dir plus dist/<type>.json,
+    dist/mappings.json and dist/mappings_matrix.json."""
+    out_dir = ROOT if out_dir is None else out_dir
+    artifact = assemble(graph)
+    dist = out_dir / DIST
+    dist.mkdir(parents=True, exist_ok=True)
+    _write_json(out_dir / ARTIFACT, artifact)
+    for obj_type, key in ARTIFACT_KEYS.items():
+        _write_json(dist / f"{obj_type}.json", artifact[key])
+    _write_json(dist / "mappings.json", artifact["mappings"])
+    _write_json(dist / "mappings_matrix.json", artifact["mappings_matrix"])
+
+
+def main(out_dir: Path | None = None) -> None:
     graph, errors = build()
     if errors:
         print(f"build failed ({len(errors)} error(s)):", file=sys.stderr)
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         raise SystemExit(1)
-    artifact = dict(graph, mappings_matrix=build_matrix(graph))
-    (ROOT / ARTIFACT).write_text(
-        json.dumps(artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
+    emit(graph, out_dir)
     counts = ", ".join(f"{len(v)} {k}" for k, v in graph.items())
     print(f"build ok ({counts})")
 

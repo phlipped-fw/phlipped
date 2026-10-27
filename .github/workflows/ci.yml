@@ -14,11 +14,7 @@ jobs:
           python-version: "3.12"
       - name: install
         run: pip install -r requirements-dev.txt
-      - name: catalog schema validation
-        run: python catalog/build.py
-      - name: assess unit tests
-        run: pytest tools/assess -q
-      - name: build site
-        run: python site/build.py
-      - name: link check
-        run: python site/linkcheck.py
+      - name: build gate
+        run: python -m build.build
+      - name: tests
+        run: pytest build/tests tools/assess -q

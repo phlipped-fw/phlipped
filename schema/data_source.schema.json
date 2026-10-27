@@ -3,6 +3,7 @@
   "$id": "https://docs.n0t.space/schema/data_source.schema.json",
   "title": "PHLIPPED Data Source",
   "type": "object",
+  "additionalProperties": false,
   "required": ["id", "name", "kind", "description", "status", "version", "added", "modified"],
   "properties": {
     "id": { "type": "string", "pattern": "^PHL-DS-\\d{2}$" },

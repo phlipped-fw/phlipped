@@ -72,5 +72,5 @@ def test_main_writes_artifact_only_on_clean_build(tmp_path, monkeypatch):
     monkeypatch.setattr(b, "build", lambda: (graph, []))
     b.main()
     out = json.loads((tmp_path / "phlipped.json").read_text())
-    assert out["technique"] == [{"id": "PHL-T-001"}]
+    assert out["techniques"] == [{"id": "PHL-T-001"}]
     assert out["mappings_matrix"] == {"PHL-T-001": {"f": ["x"]}}

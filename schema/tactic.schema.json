@@ -3,6 +3,7 @@
   "$id": "https://docs.n0t.space/schema/tactic.schema.json",
   "title": "PHLIPPED Tactic",
   "type": "object",
+  "additionalProperties": false,
   "required": ["id", "name", "short_description", "order", "status", "version", "added", "modified"],
   "properties": {
     "id": { "type": "string", "pattern": "^PHL-TA-\\d{2}$" },

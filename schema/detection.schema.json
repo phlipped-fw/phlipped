@@ -3,6 +3,7 @@
   "$id": "https://docs.n0t.space/schema/detection.schema.json",
   "title": "PHLIPPED Detection",
   "type": "object",
+  "additionalProperties": false,
   "required": ["id", "name", "techniques", "data_sources", "platform", "logic", "status", "version", "added", "modified"],
   "properties": {
     "id": { "type": "string", "pattern": "^PHL-D-\\d{3}$" },

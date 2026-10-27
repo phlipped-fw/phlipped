@@ -6,7 +6,7 @@ __pycache__/
 .pytest_cache/
 
 # generated artifacts
-catalog/catalog.json
+dist/
 site/public/
 assessment.json
 phlipped.json

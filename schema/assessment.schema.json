@@ -3,6 +3,7 @@
   "$id": "https://docs.n0t.space/schema/assessment.schema.json",
   "title": "PHLIPPED Assessment Item",
   "type": "object",
+  "additionalProperties": false,
   "required": ["id", "question", "weight", "probes", "recommendation", "status", "version", "added", "modified"],
   "properties": {
     "id": { "type": "string", "pattern": "^PSPS-\\d{3}$" },

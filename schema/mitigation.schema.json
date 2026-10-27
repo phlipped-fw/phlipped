@@ -3,6 +3,7 @@
   "$id": "https://docs.n0t.space/schema/mitigation.schema.json",
   "title": "PHLIPPED Mitigation",
   "type": "object",
+  "additionalProperties": false,
   "required": ["id", "name", "phase", "techniques", "description", "status", "version", "added", "modified"],
   "properties": {
     "id": { "type": "string", "pattern": "^PHL-M-\\d{3}$" },
