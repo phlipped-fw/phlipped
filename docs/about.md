@@ -7,26 +7,18 @@ workstation, or a dropped Raspberry Pi phoning home from inside the network.
 Most security tooling assumes the attacker is remote. PHLIPPED assumes they
 walked in.
 
-## The four parts
+## Parts and status
 
-- **Catalog.** A structured list of physical electronic threats. Each entry
-  records how hard the attack is, what hardware it needs, how it maps to MITRE
-  ATT&CK, and what it leaves behind in the logs. This site is the catalog.
-- **Assessment.** A command-line tool that scores an organisation's posture
-  from 0 to 100 and ranks its worst gaps, each linked to the catalog threat it
-  comes from. [How it works](assessment.md).
-- **Detection rules.** Sigma and Wazuh rules written to fire on the indicators
-  in the catalog. Every rule carries the id of the threat it defends against.
-  The rules are authored; validating them against live telemetry is roadmap.
-- **Lab.** A reproducible environment for validating that the rules fire as
-  expected against sample telemetry.
+The framework is made of five parts: a threat catalog, an assessment method, a
+detection layer, a hardening playbook and a reference implementation. The
+[architecture](start/architecture.md) page describes each one and how they
+connect.
 
-## Status
-
-This is an **alpha**. The catalog holds ten threats, the assessment tool and one
-fully-worked thread (badge cloning) are complete, and the site deploys
-automatically. Full detection coverage for every threat and a live validation
-lab are on the roadmap, not in this release.
+PHLIPPED is in alpha. The catalog, the assessment command, the detection rules
+as authored files and one fully worked thread (badge cloning) are in place, and
+the site rebuilds from the data on every change. Full detection coverage across
+the catalog, validation of the rules against live telemetry and the lab that
+does it are on the roadmap, not in this release.
 
 ## How the pieces fit
 

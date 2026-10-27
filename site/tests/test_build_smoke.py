@@ -11,6 +11,8 @@ def test_strict_build_succeeds():
     r = subprocess.run([sys.executable, "-m", "mkdocs", "build", "--strict", "-f", "site/mkdocs.yml"],
                        cwd=REPO, capture_output=True, text=True)
     assert r.returncode == 0, r.stderr
+    # site/hooks.py excludes the generated literate-nav sources from the output
+    assert list((REPO / "_site").glob("**/SUMMARY.md")) == []
 
 
 def test_nav_has_all_sections():

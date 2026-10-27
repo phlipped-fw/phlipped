@@ -9,14 +9,14 @@ PHLIPPED covers attacks where the attacker is physically present, or has physica
 - Drop devices on corporate networks: Raspberry Pi and ESP32 boards, hardware implants.
 - Badge cloning and the physical access control systems that accept the clones.
 - Rogue Wi-Fi access points and captive portals set up on the premises.
-- Immediate electronic side channels such as keystroke injection and USB exfiltration.
+- Immediate electronic side channels such as USB exfiltration.
 
 ## Out of scope
 
-- Mechanical lockpicking, safe manipulation and physical door bypass. Other people have covered this well, for example the TOOOL community and Deviant Ollam.
-- Social engineering with no electronic vector, which Hadnagy's work covers.
+- Mechanical lockpicking, safe manipulation and physical door bypass. Others have covered this well, for example the TOOOL community and Deviant Ollam.
+- Social engineering with no electronic vector, a field with its own literature.
 - Optical surveillance and counter-surveillance.
 - State-level threats such as TEMPEST and deep RF emanation analysis.
 
 !!! note "Why the line sits here"
-    A narrower scope keeps every catalog entry testable and every claim defensible within the length of a postgraduate project. Anything on the out-of-scope list could become a later extension, but none of it is attempted in this release.
+    A narrower scope keeps every catalog entry testable and every claim defensible with a small team and a fixed amount of time. Anything on the out-of-scope list could become a later extension, but none of it is attempted in this release.

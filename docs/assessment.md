@@ -4,11 +4,11 @@ The assessment turns the catalog into a number and a to-do list. It is an audita
 
 ## How the score works
 
-Each checklist item is a posture question with a weight from 0 to 10, for example whether the badge system uses mutually authenticated cards or whether 802.1X is enforced on publicly reachable network ports. The score is the weighted sum of the answers, normalised to 0 to 100. Each item also lists the techniques or mitigations it probes, so every unmet item in the gap report links back to the catalogued threat it concerns.
+Each checklist item is a posture question with a weight from 0 to 10, for example whether the badge system uses mutually authenticated cards or whether 802.1X is enforced on publicly reachable network ports. The score is the weighted sum of the answers, normalised to 0 to 100. Every unmet item in the gap report links back to the threat it concerns.
 
-The value of the score does not come from the graph. The graph gives traceability from a gap to a threat; the weights are set by hand. Deriving them from technique severity is a possible later change, held back until the systematic literature review validates the inputs. See [decisions](decisions.md) D8 for the reasoning.
+The weights are set by hand, and each item links to the techniques or mitigations it probes, so a gap traces back to a catalogued threat. Deriving the weights from technique severity is a possible later change, held back until a systematic literature review validates the inputs. See [decisions](decisions.md) D8 for the reasoning.
 
-The checklist currently has six items. The [data model](data-model.md) describes the item fields.
+The checklist is short and grows with the catalog. The [data model](data-model.md) describes the item fields.
 
 ## Running it
 
