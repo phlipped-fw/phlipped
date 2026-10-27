@@ -15,11 +15,12 @@ observables:
   - NTLM authentication attempts to a non-DC SMB endpoint
   - DHCPv6 advertisements from a non-infrastructure host (mitm6 indicator)
 known_tools: [Responder, mitm6, ntlmrelayx, Impacket, LAN Turtle, Bash Bunny]
+tactics: [PHL-TA-04, PHL-TA-05]
 severity: 9.2
 status: experimental
 version: 0.1.0
 added: 0.1.0
-modified: 2026-10-26
+modified: 2026-10-27
 ---
 
 # Drop device on corporate LAN

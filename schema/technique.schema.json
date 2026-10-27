@@ -3,7 +3,7 @@
   "$id": "https://docs.n0t.space/schema/technique.schema.json",
   "title": "PHLIPPED Technique",
   "type": "object",
-  "required": ["id", "name", "category", "prerequisites", "severity", "status", "version", "added", "modified"],
+  "required": ["id", "name", "category", "prerequisites", "tactics", "severity", "status", "version", "added", "modified"],
   "properties": {
     "id": { "type": "string", "pattern": "^PHL-T-[0-9]{3}$" },
     "name": { "type": "string" },
@@ -21,7 +21,7 @@
         "skill_level": { "type": "integer", "minimum": 1, "maximum": 5 }
       }
     },
-    "tactics": { "type": "array", "items": { "type": "string" } },
+    "tactics": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "data_sources": { "type": "array", "items": { "type": "string" } },
     "mitre_attack": {
       "type": "array",

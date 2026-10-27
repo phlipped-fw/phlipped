@@ -13,11 +13,12 @@ observables:
   - Vehicle unlock event timestamps inconsistent with the registered fob's known location
   - Telematics platforms reporting key-in-vehicle status while owner has fob elsewhere
 known_tools: [Commercial relay devices ("car opener boxes"), HackRF + custom firmware]
+tactics: [PHL-TA-01, PHL-TA-02, PHL-TA-03]
 severity: 7.0
 status: experimental
 version: 0.1.0
 added: 0.1.0
-modified: 2026-10-26
+modified: 2026-10-27
 ---
 
 # Vehicle key fob relay attack

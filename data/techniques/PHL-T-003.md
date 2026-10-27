@@ -14,11 +14,12 @@ observables:
   - Card-not-found events followed minutes later by successful auth with same UID
   - Inventory drift in PACS when emulated cards reuse UIDs of decommissioned ones
 known_tools: [Flipper Zero (Mfkey32), Proxmark3, ChameleonMini, mfoc, mfcuk]
+tactics: [PHL-TA-01, PHL-TA-02, PHL-TA-03]
 severity: 8.0
 status: experimental
 version: 0.1.0
 added: 0.1.0
-modified: 2026-10-26
+modified: 2026-10-27
 ---
 
 # MIFARE Classic key recovery and cloning

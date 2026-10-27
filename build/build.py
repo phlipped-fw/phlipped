@@ -19,6 +19,12 @@ OBJECT_TYPES: dict[str, dict] = {
         "id_pattern": r"^PHL-T-[0-9]{3}$",
         "format": "frontmatter",
     },
+    "tactic": {
+        "dir": "data/tactics",
+        "schema": "schema/tactic.schema.json",
+        "id_pattern": r"^PHL-TA-\d{2}$",
+        "format": "yaml",
+    },
 }
 
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---[ \t]*\n?(.*)\Z", re.DOTALL)
@@ -113,6 +119,32 @@ def check_superseded(objects: list[dict]) -> list[str]:
     return errors
 
 
+def _resolve_technique_tactics(graph: dict) -> list[str]:
+    """Every technique's tactics[] must resolve to a loaded tactic id."""
+    tactic_ids = {t.get("id") for t in graph.get("tactic", [])}
+    errors: list[str] = []
+    for obj in graph.get("technique", []):
+        for ref in obj.get("tactics", []) or []:
+            if ref not in tactic_ids:
+                errors.append(f"{obj.get('id')}: tactics: {ref} does not resolve to a loaded tactic")
+    return errors
+
+
+# One rule per cross-reference axis. Tasks 3-7 extend this list with a rule
+# each (detection -> technique/data_source, mitigation -> technique,
+# mapping -> subject, assessment -> probe) rather than modifying resolve_refs.
+_REF_RULES = [
+    _resolve_technique_tactics,
+]
+
+
+def resolve_refs(graph: dict) -> list[str]:
+    errors: list[str] = []
+    for rule in _REF_RULES:
+        errors += rule(graph)
+    return errors
+
+
 def build() -> tuple[dict, list[str]]:
     graph: dict[str, list[dict]] = {}
     errors: list[str] = []
@@ -122,6 +154,7 @@ def build() -> tuple[dict, list[str]]:
         errors += check_duplicate_ids(objects)
         errors += check_superseded(objects)
         graph[obj_type] = [{k: v for k, v in o.items() if k != "_source"} for o in objects]
+    errors += resolve_refs(graph)
     return graph, errors
 
 

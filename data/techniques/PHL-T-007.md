@@ -15,11 +15,12 @@ observables:
   - Client devices probe-requesting then associating to the BSSID outside expected channels
   - Captive-portal-style HTTP 302 to an attacker-controlled host
 known_tools: [WiFi Pineapple, ESP32 Marauder, hostapd-wpe, Airgeddon]
+tactics: [PHL-TA-01, PHL-TA-04, PHL-TA-02, PHL-TA-05]
 severity: 7.5
 status: experimental
 version: 0.1.0
 added: 0.1.0
-modified: 2026-10-26
+modified: 2026-10-27
 ---
 
 # Evil twin rogue AP

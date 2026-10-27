@@ -14,11 +14,12 @@ observables:
   - Windows Event 4663 mass file reads from removable media drive letters
   - File copies sourced from sensitive shares to a removable volume
 known_tools: [any USB flash drive, Bash Bunny in exfil mode, KeyCroc, USaBUSe]
+tactics: [PHL-TA-02, PHL-TA-05]
 severity: 7.0
 status: experimental
 version: 0.1.0
 added: 0.1.0
-modified: 2026-10-26
+modified: 2026-10-27
 ---
 
 # USB mass-storage exfiltration

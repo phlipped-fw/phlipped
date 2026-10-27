@@ -1,0 +1,8 @@
+id: PHL-TA-04
+name: Implant
+short_description: Leaving persistent hardware behind (drop device, malicious cable, rogue AP).
+order: 4
+status: draft
+version: 0.1.0
+added: 0.1.0
+modified: 2026-10-27
