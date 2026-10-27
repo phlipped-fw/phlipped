@@ -41,7 +41,7 @@ body is the technique write-up.
 | name | yes | |
 | category | yes | one of rfid-nfc, sub-ghz, hid-injection, drop-device, rogue-ap, ir, ibutton, usb-exfil |
 | prerequisites | yes | `{physical_access, time_seconds, hardware, skill_level}` |
-| severity | yes | number |
+| severity | yes | number 0 to 10; provisional, see below |
 | tactics | yes | one or more tactic ids |
 | data_sources | no | data source ids whose telemetry reveals the technique |
 | observables | no | what a defender would see |
@@ -50,6 +50,15 @@ body is the technique write-up.
 | deprecated | no | |
 
 External framework references are not fields here; they are mapping relations.
+
+`severity` is a 0 to 10 magnitude, higher meaning greater impact and lower
+attacker effort combined. The current values are the author's provisional
+judgment, not a standardised or sourced metric; the systematic review grounds or
+replaces them. See [decisions](decisions.md) D10. `data_sources` is a
+presence-only relation: it names the channels that reveal a technique, not the
+channels that stay blind to it. The telemetry-mismatch argument lives in that
+absence, which the data layer does not yet model; see the open modelling note in
+[decisions](decisions.md).
 
 ### Data source (`PHL-DS-NN`)
 
@@ -115,7 +124,11 @@ build emits them as a flat list and also as a subject-by-framework matrix.
 
 ### Assessment item (`PSPS-NNN`)
 
-A posture question. The Physical Security Posture Score is derived from these.
+A posture question. The Physical Security Posture Score is a weighted sum of
+these items' yes/no answers, normalised to 0 to 100. Each item's `probes` link
+it to the techniques or mitigations it concerns, which gives the gap report its
+traceability from a posture gap to a catalogued threat. The score is not derived
+from graph properties; see [decisions](decisions.md) D8.
 
 | Field | Required | Notes |
 |---|---|---|

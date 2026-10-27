@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://docs.n0t.space/schema/mapping.schema.json",
+  "$id": "https://phlipped.n0t.space/schema/mapping.schema.json",
   "title": "PHLIPPED Mapping",
   "description": "A relation (edge) from a PHLIPPED technique or mitigation to an external framework control. Not an object: no PHL id, no lifecycle fields.",
   "type": "object",

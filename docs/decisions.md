@@ -113,9 +113,17 @@ Cost if wrong: low. Relaxing it is per-schema and reversible.
 
 The `phlipped-assess` CLI moved from a top-level `assess/` to `tools/assess/`, to
 match the repository architecture. It reads assessment items from the built
-`phlipped.json` (via a `--data` option) instead of a bundled checklist. The
-assessment score is derived from the object graph, because each assessment item
-probes specific techniques or mitigations by id.
+`phlipped.json` (via a `--data` option) instead of a bundled checklist.
+
+The PSPS score itself is a weighted sum of the items' yes/no answers, normalised
+to 0 to 100. It is not derived from graph properties. What ties each item to the
+graph is its `probes` field: the build resolves every probe to a real technique
+or mitigation id, and the gap report links each unmet item to the catalogued
+threat it concerns. So the graph gives the score traceability (gap to threat),
+not its value. Deriving the value from the graph (for example weighting an item
+by the severity of the techniques it probes) is a deliberate later option, held
+back because inventing such a metric before the systematic review validates the
+inputs would be the same fabrication D4 forbids.
 
 Why: the tool is a consumer of the data like any other, so it belongs beside the data
 it consumes and reads the same validated artifact. Cost and effort figures that used
@@ -142,6 +150,39 @@ from nothing.
 
 Cost if wrong: contained. The axis is five files and a set of `tactics:` fields on
 the techniques; the review can revise both without a code change.
+
+Date: 2026-10-27.
+
+## D10. Severity is a provisional 0 to 10 judgment, not a validated metric
+
+Every technique carries a `severity` number bounded 0 to 10. The current values
+are the author's own impact-and-ease judgment, not a figure from a standardised
+scale (CVSS or similar) or a cited source. The scale and its meaning are recorded
+in `docs/data-model.md`; the values are provisional and the systematic review
+either grounds them in a defined rubric or replaces them.
+
+Why: a matrix and a gap report need a comparable magnitude per technique, so the
+field has to exist now. But D4 forbids shipping an invented number as if it were
+sourced, so the honest position is to keep the field, bound it, and say plainly
+that the current values are provisional judgment rather than dress them up as a
+measured metric.
+
+Cost if wrong: trivial. Re-scoring is a data edit with no schema change; adopting
+a formal scale later is a documentation change plus a re-score, not a restructure.
+
+Date: 2026-10-27.
+
+## Open modelling question: the telemetry mismatch
+
+PHLIPPED claims as a novelty that close-access attacks are poorly covered by
+conventional SIEM telemetry. The data layer currently models only the positive
+relation: a technique's `data_sources` name the channels that *reveal* it. It
+does not model the absence, the expected channels that stay blind to a technique,
+which is where the mismatch argument actually lives. Expressing the mismatch as
+data would need either a new field (for example a technique's expected-but-blind
+sources) or a derived coverage gap computed from detections. Which, and whether
+the argument stays partly in prose, is deferred to the systematic review rather
+than guessed at now. Recorded here so the gap is explicit, not overlooked.
 
 Date: 2026-10-27.
 

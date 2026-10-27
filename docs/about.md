@@ -15,8 +15,9 @@ walked in.
 - **Assessment.** A command-line tool that walks you through a short checklist
   and produces a Physical Security Posture Score from 0 to 100, plus your worst
   gaps ranked by weight, each linked to the catalog threat it comes from.
-- **Detection rules.** Sigma and Wazuh rules that fire on the indicators in the
-  catalog. Every rule maps back to the threat it defends against.
+- **Detection rules.** Sigma and Wazuh rules written to fire on the indicators
+  in the catalog. Every rule carries the id of the threat it defends against.
+  The rules are authored; validating them against live telemetry is roadmap.
 - **Lab.** A reproducible environment for validating that the rules fire as
   expected against sample telemetry.
 

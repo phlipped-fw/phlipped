@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://docs.n0t.space/schema/mitigation.schema.json",
+  "$id": "https://phlipped.n0t.space/schema/mitigation.schema.json",
   "title": "PHLIPPED Mitigation",
   "type": "object",
   "additionalProperties": false,

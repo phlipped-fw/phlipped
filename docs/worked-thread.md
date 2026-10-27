@@ -29,12 +29,14 @@ is to turn them into something that actually fires an alert.
 
 ## 3. The detection
 
-PHLIPPED ships a detection rule for exactly this behaviour:
+PHLIPPED defines a detection rule for exactly this behaviour:
 [`PHL-D-003`](https://github.com/phlipped-fw/phlipped/blob/main/data/detections/PHL-D-003.yml).
-It reads the access-control system's event log and raises a high-severity alert
-when it sees the same badge ID at incompatible readers, or the failed-reads-then-
-entry pattern above. Every detection rule maps back to the threat it defends
-against, so an analyst seeing the alert can read the full context in one click.
+Run against the access-control system's event log, it is written to raise a
+high-severity alert when the same badge ID appears at incompatible readers, or
+on the failed-reads-then-entry pattern above. Every detection rule carries the
+id of the threat it defends against, so an analyst seeing the alert can read the
+full context in one click. The rule is authored, not yet validated against live
+telemetry: a lab that fires it against sample logs is on the roadmap.
 
 ## 4. The fix
 

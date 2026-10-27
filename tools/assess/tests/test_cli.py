@@ -36,7 +36,7 @@ def test_report_command_writes_html(tmp_path, data_path):
     assert "/ 100" in html
     # PSPS-001 was answered 'no' so it is a gap and must appear, linked to its technique
     assert "PSPS-001" in html
-    assert "/threats/PHL-T-001.html" in html
+    assert "/techniques/PHL-T-001.html" in html
 
 
 def test_score_is_weighted_from_built_items(tmp_path, data_path):

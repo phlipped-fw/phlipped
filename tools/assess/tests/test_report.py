@@ -24,7 +24,7 @@ def test_report_lists_each_gap_recommendation_and_threat_link():
     assert "fix PSPS-001" in html
     # each gap links to its catalog threat page
     assert "PHL-T-003" in html
-    assert "/threats/PHL-T-003" in html
+    assert "/techniques/PHL-T-003" in html
 
 
 def test_report_renders_gaps_in_given_priority_order():
@@ -35,6 +35,6 @@ def test_report_renders_gaps_in_given_priority_order():
 
 def test_report_links_technique_probes_but_not_mitigation_probes():
     html = render_report(0.0, [_item("PSPS-001", 9, ["PHL-T-003", "PHL-M-001"])])
-    assert '<a href="/threats/PHL-T-003.html">PHL-T-003</a>' in html
+    assert '<a href="/techniques/PHL-T-003.html">PHL-T-003</a>' in html
     assert "PHL-M-001" in html
-    assert "/threats/PHL-M-001" not in html
+    assert "/techniques/PHL-M-001" not in html

@@ -80,7 +80,7 @@ def run(answers_path: Path | None, out_path: Path, data_path: Path) -> None:
 @cli.command()
 @click.option("--in", "in_path", type=click.Path(exists=True, path_type=Path), default=Path("assessment.json"), help="assessment.json produced by 'run'")
 @click.option("--out", "out_path", type=click.Path(path_type=Path), default=Path("report.html"))
-@click.option("--base-url", default="/threats", help="base URL for catalog threat links")
+@click.option("--base-url", default="/techniques", help="base URL for catalog technique links")
 @data_option
 def report(in_path: Path, out_path: Path, base_url: str, data_path: Path) -> None:
     """Render an HTML posture report from an assessment.json."""

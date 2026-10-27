@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://docs.n0t.space/schema/tactic.schema.json",
+  "$id": "https://phlipped.n0t.space/schema/tactic.schema.json",
   "title": "PHLIPPED Tactic",
   "type": "object",
   "additionalProperties": false,

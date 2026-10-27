@@ -47,6 +47,6 @@ _TEMPLATE = Template(
 )
 
 
-def render_report(psps: float, gaps: list[Item], base_url: str = "/threats") -> str:
+def render_report(psps: float, gaps: list[Item], base_url: str = "/techniques") -> str:
     """Render the report HTML. gaps are rendered in the order given."""
     return _TEMPLATE.render(psps=psps, gaps=gaps, base_url=base_url)
