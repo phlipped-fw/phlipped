@@ -1,5 +1,5 @@
 site_name: PHLIPPED
-site_description: A defensive framework for physical electronic attacks.
+site_description: "PHLIPPED (Physical Layered Intrusion Prevention, Protection and Evaluation Defense): a defensive framework for physical electronic attacks."
 site_url: https://phlipped.n0t.space
 repo_url: https://github.com/phlipped-fw/phlipped
 repo_name: phlipped-fw/phlipped
