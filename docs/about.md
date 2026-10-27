@@ -12,9 +12,9 @@ walked in.
 - **Catalog.** A structured list of physical electronic threats. Each entry
   records how hard the attack is, what hardware it needs, how it maps to MITRE
   ATT&CK, and what it leaves behind in the logs. This site is the catalog.
-- **Assessment.** A command-line tool that walks you through a short checklist
-  and produces a Physical Security Posture Score from 0 to 100, plus your worst
-  gaps ranked by weight, each linked to the catalog threat it comes from.
+- **Assessment.** A command-line tool that scores an organisation's posture
+  from 0 to 100 and ranks its worst gaps, each linked to the catalog threat it
+  comes from. [How it works](assessment.md).
 - **Detection rules.** Sigma and Wazuh rules written to fire on the indicators
   in the catalog. Every rule carries the id of the threat it defends against.
   The rules are authored; validating them against live telemetry is roadmap.
@@ -38,7 +38,7 @@ indicators  ->  detection rules (how you catch it)
 ```
 
 Start with the [worked thread](worked-thread.md) to see the whole loop on one
-attack, then browse the [catalog](index.md).
+attack, then browse the [catalog](techniques/index.md).
 
 ## Licence
 

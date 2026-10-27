@@ -1,19 +1,57 @@
 site_name: PHLIPPED
+site_description: A defensive framework for physical electronic attacks.
 site_url: https://phlipped.n0t.space
+repo_url: https://github.com/phlipped-fw/phlipped
+repo_name: phlipped-fw/phlipped
 docs_dir: ../docs
 site_dir: ../_site
 strict: true
 
+hooks:
+  - hooks.py
+
 theme:
   name: material
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.instant
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
 plugins:
   - search
+  - tags
   - gen-files:
       scripts: [gen/gen_pages.py]
   - literate-nav:
       nav_file: SUMMARY.md
   - section-index
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
 
 validation:
   nav:
@@ -25,13 +63,21 @@ validation:
 
 nav:
   - Home: index.md
-  - About: about.md
-  - Worked thread: worked-thread.md
+  - Start here:
+      - Introduction: start/introduction.md
+      - Scope: start/scope.md
+      - Architecture: start/architecture.md
   - Catalog: techniques/
   - Detections: detections/
   - Mitigations: mitigations/
   - Matrix: matrix.md
   - Mappings: mappings.md
-  - Data model: data-model.md
-  - Decisions: decisions.md
-  - Building: building.md
+  - Assessment: assessment.md
+  - Hardening: hardening.md
+  - Reference:
+      - Data model: data-model.md
+      - Decisions: decisions.md
+      - Building: building.md
+      - Worked thread: worked-thread.md
+      - About: about.md
+      - Tags: tags.md
