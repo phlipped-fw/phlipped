@@ -43,7 +43,8 @@ def test_technique_page_drops_duplicate_leading_h1():
 
 def test_matrix_places_multi_tactic_technique_in_each_column():
     md = g.matrix_table(TACTICS, [T])
-    assert md.count("PHL-T-003") >= 2
+    # the link target appears once per placement, so two means two columns
+    assert md.count("(techniques/PHL-T-003.md)") == 2
     assert md.index("Approach") < md.index("Capture")
 
 
