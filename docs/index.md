@@ -1,6 +1,6 @@
 # PHLIPPED
 
-Attackers have a Flipper Zero. PHLIPPED is the defender's side of that exchange: a framework for physical electronic attacks such as badge cloning, keystroke injection, drop devices and rogue radios.
+PHLIPPED is the defender's answer to the physical electronic attacks that cheap pocket hardware like the Flipper Zero has made routine: badge cloning, keystroke injection, drop devices and rogue radios.
 
 The name expands to Physical Layered Intrusion Prevention, Protection and Evaluation Defense. It catalogs the threats, scores how exposed an organisation is, and for each threat gives a detection rule and a mitigation, mapped to MITRE ATT&CK and MITRE D3FEND. Mappings to NIST CSF 2.0, ISO 27001 Annex A and NIS2 are planned and already allowed by the data model.
 
@@ -13,4 +13,4 @@ The name expands to Physical Layered Intrusion Prevention, Protection and Evalua
 
 </div>
 
-PHLIPPED is an alpha release. The [about page](about.md) lists what is complete and what is still on the roadmap.
+PHLIPPED is an early alpha; the [about page](about.md), under Reference, lists what is complete and what is still on the roadmap.
