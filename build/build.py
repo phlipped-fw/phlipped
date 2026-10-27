@@ -119,14 +119,31 @@ def check_superseded(objects: list[dict]) -> list[str]:
     return errors
 
 
+def _ids(graph: dict, obj_type: str) -> set[str]:
+    """Loaded ids of one type; non-string ids (malformed data) are ignored."""
+    return {o["id"] for o in graph.get(obj_type, []) if isinstance(o.get("id"), str)}
+
+
+def _dangling_refs(obj: dict, field: str, valid_ids: set[str], target: str) -> list[str]:
+    """One error per entry of obj[field] that is not in valid_ids. Malformed
+    shapes (field not a list, entry not a string) are skipped: the schema
+    already reports them, so a ref rule must neither raise nor add noise."""
+    refs = obj.get(field)
+    if not isinstance(refs, list):
+        return []
+    return [
+        f"{obj.get('id')}: {field}: {ref} does not resolve to a loaded {target}"
+        for ref in refs
+        if isinstance(ref, str) and ref not in valid_ids
+    ]
+
+
 def _resolve_technique_tactics(graph: dict) -> list[str]:
     """Every technique's tactics[] must resolve to a loaded tactic id."""
-    tactic_ids = {t.get("id") for t in graph.get("tactic", [])}
+    tactic_ids = _ids(graph, "tactic")
     errors: list[str] = []
     for obj in graph.get("technique", []):
-        for ref in obj.get("tactics", []) or []:
-            if ref not in tactic_ids:
-                errors.append(f"{obj.get('id')}: tactics: {ref} does not resolve to a loaded tactic")
+        errors += _dangling_refs(obj, "tactics", tactic_ids, "tactic")
     return errors
 
 
