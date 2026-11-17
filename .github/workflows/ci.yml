@@ -22,3 +22,10 @@ jobs:
         env:
           NO_MKDOCS_2_WARNING: "1"
         run: mkdocs build --strict -f site/mkdocs.yml
+
+  detections:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: wazuh rules against lab samples
+        run: python3 lab/validate.py

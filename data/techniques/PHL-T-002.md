@@ -27,6 +27,6 @@ A device emulating a USB HID keyboard injects keystrokes at machine speed. Bypas
 
 ## Defensive layers
 
-- Detection: typing-rate anomaly via Sysmon Event ID 1 + endpoint telemetry. See `phlipped-rules/PHL-D-002`.
+- Detection: `PHL-D-002`, payload-style shell started from the Run dialog (Sysmon Event ID 1). Typing-rate telemetry is a planned complement.
 - Prevent: USB lockdown via GPO restricting HID class on locked sessions; physical port blockers on kiosks.
 - Respond: isolate endpoint, review last 60s of process tree, revoke any credentials potentially touched.

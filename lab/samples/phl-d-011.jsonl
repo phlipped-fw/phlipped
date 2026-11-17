@@ -1,0 +1,4 @@
+{"expect": "100211", "event": {"dhcp_event": "lease", "src_mac": "B8:27:EB:12:34:56", "vlan_id": "40", "switch_port": "Gi1/0/12"}}
+{"expect": "100211", "event": {"dhcp_event": "lease", "src_mac": "24:0a:c4:aa:bb:cc", "vlan_id": "50", "switch_port": "Gi1/0/12"}}
+{"expect": null, "event": {"dhcp_event": "lease", "src_mac": "B8:27:EB:12:34:56", "vlan_id": "10", "switch_port": "Gi1/0/12"}}
+{"expect": null, "event": {"dhcp_event": "lease", "src_mac": "3C:52:82:01:02:03", "vlan_id": "40", "switch_port": "Gi1/0/12"}}

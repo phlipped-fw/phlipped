@@ -20,7 +20,9 @@ services:
       - wazuh_etc:/var/ossec/etc
       - wazuh_logs:/var/ossec/logs
       - wazuh_queue:/var/ossec/queue
-      - ../rules/wazuh:/var/ossec/etc/rules/local_rules.d:ro
+      # the image copies /wazuh-config-mount into /var/ossec on start; a direct mount under
+      # /var/ossec/etc stops it from installing its default config
+      - ../rules/wazuh:/wazuh-config-mount/etc/rules:ro
 
   wazuh-indexer:
     image: wazuh/wazuh-indexer:4.9.0

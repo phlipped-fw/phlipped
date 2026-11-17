@@ -35,8 +35,10 @@ Run against the access-control system's event log, it is written to raise a
 high-severity alert when the same badge ID appears at incompatible readers, or
 on the failed-reads-then-entry pattern above. Every detection rule carries the
 id of the threat it defends against, so an analyst seeing the alert can read the
-full context in one click. The rule is authored, not yet validated against live
-telemetry: a lab that fires it against sample logs is on the roadmap.
+full context in one click. The rule is checked against synthetic access-control
+events in the project lab, where a real Wazuh manager confirms it fires on both
+patterns and stays quiet on a normal badge tap. It has not yet been tuned on a
+production access-control system.
 
 ## 4. The fix
 

@@ -1,0 +1,114 @@
+<!--
+  PHLIPPED detection rules - Wazuh fragment.
+  Lab install: mounted at /wazuh-config-mount/etc/rules/, which the manager image copies
+  into /var/ossec/etc/rules/ on start (see lab/docker-compose.yml).
+  Named so it sorts after the stock 0xxx ruleset: Wazuh loads all rule files in one
+  name-sorted list and if_sid parents must already be loaded.
+  Rule IDs allocated in the 100200-100299 range; adjust to your deployment.
+  Validated with wazuh-logtest against lab/samples/ by lab/validate.py.
+-->
+<group name="phlipped,physical_attack,">
+
+  <!-- PHL-D-002 - HID injection: shell started from explorer (Run dialog) with a payload-style
+       command line. Sysmon Event ID 1. Explorer parent alone is normal desktop use, so the
+       command line must also carry injection traits: hidden window, encoded or no-profile
+       powershell, or a download cradle. -->
+  <rule id="100202" level="10">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\(cmd|powershell|pwsh|wscript|mshta)\.exe$</field>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)\\explorer\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(\s-w(indowstyle)?\s+h(idden)?\b|\s-e(nc|ncodedcommand)?\s+[a-z0-9+/=]{8,}|\s-nop\b|downloadstring|invoke-webrequest|\biwr\b|\biex\b|certutil.+-urlcache|bitsadmin.+/transfer|mshta\s+https?://)</field>
+    <description>PHL-D-002: HID injection - payload-style shell started from explorer (Run dialog).</description>
+    <mitre>
+      <id>T1200</id>
+      <id>T1059.001</id>
+    </mitre>
+    <group>phlipped,phl-d-002,</group>
+  </rule>
+
+  <!-- PHL-D-003 - MIFARE clone on PACS. Expects PACS events normalised to JSON lines:
+       {"pacs_event":"card_read","uid":..,"reader_id":..,"site":..,"result":"granted|denied"} -->
+  <rule id="100230" level="0">
+    <decoded_as>json</decoded_as>
+    <field name="pacs_event">^card_read$</field>
+    <description>PHLIPPED: PACS card read.</description>
+    <group>phlipped,pacs,</group>
+  </rule>
+
+  <!-- helpers sit at level 2: tracked for correlation (level 0 is not) but under the
+       default log_alert_level of 3, so single badge taps do not alert -->
+  <rule id="100231" level="2">
+    <if_sid>100230</if_sid>
+    <field name="result">^denied$</field>
+    <description>PHLIPPED: PACS card read denied.</description>
+    <group>phlipped,pacs,</group>
+  </rule>
+
+  <rule id="100232" level="2">
+    <if_sid>100230</if_sid>
+    <field name="result">^granted$</field>
+    <description>PHLIPPED: PACS card read granted.</description>
+    <group>phlipped,pacs,</group>
+  </rule>
+
+  <!-- key recovery in progress: repeated failed reads of one UID -->
+  <rule id="100233" level="7" frequency="5" timeframe="60">
+    <if_matched_sid>100231</if_matched_sid>
+    <same_field>uid</same_field>
+    <description>PHL-D-003: burst of failed reads for one card UID (possible key recovery).</description>
+    <mitre>
+      <id>T1556</id>
+    </mitre>
+    <group>phlipped,phl-d-003,</group>
+  </rule>
+
+  <!-- the clone walks in: grant for a UID shortly after its failed-read burst -->
+  <rule id="100234" level="12" timeframe="300">
+    <if_sid>100232</if_sid>
+    <if_matched_sid>100233</if_matched_sid>
+    <same_field>uid</same_field>
+    <description>PHL-D-003: card UID granted right after a failed-read burst (possible cloned badge).</description>
+    <mitre>
+      <id>T1078</id>
+      <id>T1556</id>
+    </mitre>
+    <group>phlipped,phl-d-003,</group>
+  </rule>
+
+  <!-- impossible travel: same UID granted at two sites within 5 minutes.
+       shortcut: site stands in for a reader distance table, upgrade to per-reader-pair
+       travel times when a real PACS layout exists -->
+  <rule id="100235" level="12" frequency="2" timeframe="300">
+    <if_matched_sid>100232</if_matched_sid>
+    <same_field>uid</same_field>
+    <different_field>site</different_field>
+    <description>PHL-D-003: same card UID granted at two sites within 5 minutes (possible cloned badge).</description>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+    <group>phlipped,phl-d-003,</group>
+  </rule>
+
+  <!-- PHL-D-011 - drop-device MAC OUI on a non-IT VLAN. Expects DHCP/NAC events normalised to
+       JSON lines: {"dhcp_event":"lease","src_mac":..,"vlan_id":..,"switch_port":..}.
+       IT VLANs 10 and 11 are lab placeholders, set your own. -->
+  <rule id="100211" level="10">
+    <decoded_as>json</decoded_as>
+    <field name="dhcp_event">^lease$</field>
+    <field name="src_mac" type="pcre2">(?i)^(B8:27:EB|DC:A6:32|E4:5F:01|28:CD:C1|2C:CF:67|D8:3A:DD|24:0A:C4|7C:DF:A1)</field>
+    <description>PHL-D-011: drop-device MAC OUI (Raspberry Pi / Espressif) leased on a non-IT VLAN.</description>
+    <mitre>
+      <id>T1200</id>
+    </mitre>
+    <group>phlipped,phl-d-011,</group>
+  </rule>
+
+  <!-- allow-list: those OUIs are expected on IT VLANs, level 0 drops the alert -->
+  <rule id="100212" level="0">
+    <if_sid>100211</if_sid>
+    <field name="vlan_id">^10$|^11$</field>
+    <description>PHLIPPED: drop-device OUI on an IT VLAN, allow-listed.</description>
+    <group>phlipped,</group>
+  </rule>
+
+</group>

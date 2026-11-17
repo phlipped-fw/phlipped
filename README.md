@@ -22,7 +22,8 @@ schema/      a JSON Schema per object type
 build/       the build: validate + resolve cross-references + emit phlipped.json
 tools/assess/  phlipped-assess: CLI that scores posture (PSPS) off the built artifact
 docs/        the data model, design decisions, build guide, and narrative pages
-lab/         docker-compose Wazuh lab for validating detections (roadmap)
+rules/       Wazuh rules for the detections
+lab/         Wazuh lab + validate.py, which checks every rule against sample events
 ```
 
 See [docs/data-model.md](docs/data-model.md) for the object graph and
@@ -52,8 +53,10 @@ data sources, three detections, eighteen mitigations, six assessment items, and
 twenty-nine MITRE mappings, all validated by the build and covered by tests. The
 taxonomy is provisional and is refined by a systematic literature review. The
 documentation site is built with Material for MkDocs from `phlipped.json` and
-deploys through Cloudflare Pages (see `DEPLOY.md`). Full detection coverage
-and a live validation lab are roadmap, not in this release.
+deploys through Cloudflare Pages (see `DEPLOY.md`). The three detections have Wazuh
+rules that `lab/validate.py` checks against synthetic attack and benign events in a
+real Wazuh manager, in CI. Detection coverage for the other seven techniques and
+tuning on production telemetry are roadmap.
 
 ## License
 

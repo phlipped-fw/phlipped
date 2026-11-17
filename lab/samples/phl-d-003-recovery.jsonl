@@ -1,0 +1,7 @@
+{"expect": null, "event": {"pacs_event": "card_read", "uid": "04A1B2C3", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "denied"}}
+{"expect": null, "event": {"pacs_event": "card_read", "uid": "04A1B2C3", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "denied"}}
+{"expect": null, "event": {"pacs_event": "card_read", "uid": "04A1B2C3", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "denied"}}
+{"expect": null, "event": {"pacs_event": "card_read", "uid": "04A1B2C3", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "denied"}}
+{"expect": "100233", "event": {"pacs_event": "card_read", "uid": "04A1B2C3", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "denied"}}
+{"expect": "100234", "event": {"pacs_event": "card_read", "uid": "04A1B2C3", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "granted"}}
+{"expect": null, "event": {"pacs_event": "card_read", "uid": "04FFEE01", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "granted"}}

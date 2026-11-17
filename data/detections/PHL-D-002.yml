@@ -5,9 +5,11 @@ data_sources: [PHL-DS-07, PHL-DS-08]
 platform: sigma
 logic: |
   description: |
-    Detects shell / scripting host spawned by a foreground-less context immediately followed by
-    a burst of keystrokes at machine speed, indicative of BadUSB / RubberDucky / O.MG cable
-    injection into a locked or kiosk endpoint.
+    Detects a shell or script host started from explorer (the Run dialog a keystroke-injection
+    payload drives) whose command line carries payload traits: hidden window, encoded or
+    no-profile powershell, or a download cradle. Explorer as parent alone is normal desktop
+    use, so the command-line condition is what separates BadUSB / RubberDucky / O.MG cable
+    injection from a user opening a terminal.
   references:
     - https://github.com/phlipped-fw/phlipped/blob/main/data/techniques/PHL-T-002.md
   logsource:
@@ -22,8 +24,19 @@ logic: |
         - '\mshta.exe'
       ParentImage|endswith:
         - '\explorer.exe'
-        - '\winlogon.exe'
-    condition: proc
+    payload:
+      CommandLine|contains:
+        - ' -w hidden'
+        - ' -windowstyle hidden'
+        - ' -enc '
+        - ' -encodedcommand '
+        - ' -nop'
+        - 'downloadstring'
+        - 'invoke-webrequest'
+        - 'iex '
+        - 'certutil -urlcache'
+        - 'bitsadmin /transfer'
+    condition: proc and payload
   fields:
     - User
     - Image
@@ -36,8 +49,9 @@ logic: |
     - attack.execution
     - attack.t1059.001
 false_positives:
-  - Legitimate admin scripting bursts (rare on locked sessions)
+  - Admins launching hidden or encoded powershell from the Run dialog (allow-list by user)
+  - Misses payloads that avoid these traits; typing-rate telemetry is the planned complement
 status: experimental
 version: 0.1.0
 added: 0.1.0
-modified: 2026-10-27
+modified: 2026-11-17

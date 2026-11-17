@@ -36,4 +36,4 @@ Still deployed widely in office buildings, gyms, parking garages. Migration to i
 
 ## Defensive layers
 
-See `phlipped-rules/PHL-D-001` (detection) and the hardening playbook for migration guidance.
+No detection rule yet; see the hardening playbook for migration guidance.

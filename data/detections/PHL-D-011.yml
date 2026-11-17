@@ -18,6 +18,9 @@ logic: |
         - 'B8:27:EB'   # Raspberry Pi Foundation
         - 'DC:A6:32'   # Raspberry Pi Trading
         - 'E4:5F:01'   # Raspberry Pi Trading
+        - '28:CD:C1'   # Raspberry Pi Trading
+        - '2C:CF:67'   # Raspberry Pi Trading
+        - 'D8:3A:DD'   # Raspberry Pi Trading
         - '24:0A:C4'   # Espressif
         - '7C:DF:A1'   # Espressif
     not_it_vlan:
@@ -36,4 +39,4 @@ false_positives:
 status: experimental
 version: 0.1.0
 added: 0.1.0
-modified: 2026-10-27
+modified: 2026-11-17

@@ -1,0 +1,3 @@
+{"expect": null, "event": {"pacs_event": "card_read", "uid": "04D4E5F6", "reader_id": "R-LOBBY-1", "site": "HQ", "result": "granted"}}
+{"expect": null, "event": {"pacs_event": "card_read", "uid": "04D4E5F6", "reader_id": "R-LAB-2", "site": "HQ", "result": "granted"}}
+{"expect": "100235", "event": {"pacs_event": "card_read", "uid": "04D4E5F6", "reader_id": "R-GATE-1", "site": "WAREHOUSE", "result": "granted"}}
